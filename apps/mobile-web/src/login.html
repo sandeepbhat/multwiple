@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+	<title id="pagetitle">Multwiple: the Best Twitter client around.</title>
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /> 
+	<link href="css/default.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="/s/getlogin"></script>
+	<script type="text/javascript" src="scripts/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="scripts/compressed.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+	
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-16436384-2']);
+	  _gaq.push(['_setDomainName', '.multwiple.com']);
+	  _gaq.push(['_trackPageview']);
+	
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	
+	  function showMenu(){
+	  	$("#respondMenu").toggle('right');
+	  }
+	</script>
+  <!-- Google Analytics -->
+	<!-- start of bottom menu -->	 
+	<div id="reply_menu" style="position: absolute; width:100%; padding: 5px 0; display: none;">
+		<div id="respondMenu" class="reply-menu">
+			<ul>
+				<li>
+					<a id="public_reply" href="#" title="Reply">
+						<span class="ui-icon ui-icon-arrowreturn-1-w"></span>
+					</a>
+				</li>
+				<li>
+					<a id="retweet_woc" href="#" title="Retweet">
+						<span class="ui-icon ui-icon-refresh"></span>
+					</a>
+				</li>
+				<li>
+					<a id="direct_msg" href="#" title="DM">
+						<span class="ui-icon ui-icon-mail-closed"></span>
+					</a>
+				</li>
+				<li>
+					<a id="retweet_wc" href="#" title="Comment">
+						<span class="ui-icon ui-icon-refresh"></span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- end of bottom menu -->
+	
+
+<!-- *********************************************************
+     * You may use this code for free on any web page provided that 
+     * these comment lines and the following credit remain in the code.
+     * Floating Div from http://www.javascript-fx.com
+     ********************************************************  -->
+<script type="text/javascript">
+var ns = (navigator.appName.indexOf("Netscape") != -1);
+var d = document;
+var px = document.layers ? "" : "px";
+function JSFX_FloatDiv(id, sx, sy)
+{
+	var el=d.getElementById?d.getElementById(id):d.all?d.all[id]:d.layers[id];
+	window[id + "_obj"] = el;
+	if(d.layers)el.style=el;
+	el.cx = el.sx = sx;el.cy = el.sy = sy;
+	el.sP=function(x,y){this.style.left=x+px;this.style.top=y+px;};
+	el.flt=function()
+	{
+		var pX, pY;
+		pX = (this.sx >= 0) ? 0 : ns ? innerWidth : 
+		document.documentElement && document.documentElement.clientWidth ? 
+		document.documentElement.clientWidth : document.body.clientWidth;
+		pY = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+		document.documentElement.scrollTop : document.body.scrollTop;
+		if(this.sy<0) 
+		pY += ns ? innerHeight : document.documentElement && document.documentElement.clientHeight ? 
+		document.documentElement.clientHeight : document.body.clientHeight;
+		this.cx += (pX + this.sx - this.cx)/8;this.cy += (pY + this.sy - this.cy)/8;
+		this.sP(this.cx, this.cy);
+		setTimeout(this.id + "_obj.flt()", 0);
+	}
+	return el;
+}
+JSFX_FloatDiv("reply_menu", 0, 45).flt();
+//JSFX_FloatDiv("bottom_left_menu", 10, -30).flt();
+
+</script>
+
+	<div style="padding:0; margin: 0; background: #fff;">
+	<table style="width: 100%; margin: 0; padding:0; border-bottom: 1px solid #111;" cellpadding="0" cellspacing="0">
+		<tr id="tabs">
+			<td class="tab tab-off" id="tab_0" onclick="javascript:selectTab(0);">
+				<a href="#">
+					<span style="color: #444; font-size: 150%; font-weight: bold;">+</span>
+				</a>
+			</td>
+			<td class="tab" style="text-align: right;" id="settings_tab">
+				<a href="index.html">
+					<img src="images/logo-small.png" alt="Multwiple" />
+				</a>
+			</td>
+		</tr>
+	</table>
+	</div>
+	<!-- start of top menu -->	 
+	<!-- end of top menu -->
+		 
+	<!-- start of tweet -->
+	<div id="panel">
+		<div id="user_0" class="tweet-container" style="text-align: center;display: none;">
+				<div>
+						<img style="width: 125px;" src="images/twitter.png" alt="Twitter" /><br/>
+						<form method="get" action="/s/oauth">
+							<input type="submit" name="login" value="Twitter Sign In" class="jui-button" />
+						</form>
+				</div>
+		</div>
+		<div  style="text-align: center;display: none;" class="tweet-container" id="settings_section">
+				<div class="section"> Accounts </div>
+		    <div class="accounts" id="user_list">
+		     		<!-- The user list will be placed here... For settings... -->
+		    </div>
+			  <div class="section">Preferences</div>
+			  <div>
+			    <table style="width:90%; margin-left: 10px; padding: 0px; font-size: x-small;border-collapse: collapse;">
+			      <tr>
+			        <td  style="border: 1px solid #CCC;">
+			          <label>Get Tweets</label>
+			        </td>
+			        <td  style="border: 1px solid #CCC;">
+				        <select id="update_interval" class="jui-button ui-corner-all">
+				          <option value="1"> Every Minute </option>
+				          <option value="2"> Every 2 Minutes </option>
+				          <option value="3"> Every 3 Minutes </option>
+				          <option value="5"> Every 5 Minutes </option>
+				        </select>
+			        </td>
+			      </tr>
+			      <tr>
+			      	<td colspan="2">
+			      		<form action=""  style="margin: 5px 0 0 0;">
+			      			<input type="button" onclick="setSettings();" value="Save" class="jui-button"/>
+			      			<input type="button" onclick="closeSettings();" value="Cancel" class="jui-button"/>
+			      		</form>
+			      	</td>
+			      </tr>
+			    </table>
+			  </div>
+		</div>
+	</div>	 
+</body>
+</html>

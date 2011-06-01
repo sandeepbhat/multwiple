@@ -1,0 +1,382 @@
+/* 
+    Document   : index.css
+    Created on : 3 Dec, 2009, 5:29:40 PM
+    Author     : appatil
+    Description: main style sheet for multwiple
+*/
+html {
+	overflow-y: scroll;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	/*'bitstream vera serif', 'georgia', serif, 'sans-serif';*/
+	/* And thus we prevent jerkiness, with a always on vertical scroll bar */
+  font-size: smaller;
+}
+
+html img {
+  border: 0 none;
+  vertical-align: middle;
+}
+
+body {
+  background: #111;
+  padding: 0px;
+  margin: 0px;
+  color: #EEE;
+}
+ 
+.tab-on {
+	background: #111; 
+}
+
+.tab-off {
+	background: #ddd;
+	border-right: 1px solid #777; 
+}
+
+.tab {
+	width: 20px; 
+	height: 18px; 
+	padding: 1px 2px; 
+	text-align: center;
+}
+
+.tab a, a:link, a:visited {
+	color: #111;
+	text-decoration: none;
+}
+
+.tab a:focus, a:hover {
+	color: #111;
+	text-decoration: underline;
+}
+
+.tab a img {
+	width:18px; 
+	height: 18px;
+	border:0;
+}
+
+.reply-menu {
+	background:#222222;
+	margin:0px 0 0 0;
+	padding:2px;
+	position:absolute;
+	right:0px;
+	text-align:left;
+	color: #eee;
+}
+
+.reply-menu ul {
+	padding: 0px;
+	margin: 0px;
+	list-style-type: none;
+}
+
+.reply-menu ul li {
+	cursor: pointer;
+}
+
+.reply-menu ul li:HOVER {
+	background: #333;
+}
+
+
+.header {
+	color: #ddd;
+	padding: 0 5px;
+	border-bottom: 3px solid #999;
+}
+
+.header img {
+	height: 16px;
+	width: 16px;
+	vertical-align: middle;
+}
+
+.header a, a:link, a:visited {
+	color:#D7EBF9;
+	text-decoration: none;
+}
+
+.header a:focus, a:hover {
+	text-decoration: none;
+}
+
+
+.text-box {
+	color:#777777;
+	padding: 2px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius:3px;
+	border-radius: 3px;
+	margin: 0;
+	width: 90%;
+	resize:none; 
+	font-size: xx-small;
+}
+
+.text-box:FOCUS {
+	color: #222;	
+}
+
+.tweettime a {
+	color: #222;
+  text-decoration: none;	
+}
+
+.tweettime a:HOVER {
+  text-decoration: underline;	
+}
+
+
+.chars_left {
+	font-size: small;
+	color: #aaa;
+	padding: 0px 10px 0px 0px;
+	vertical-align: middle;
+}
+
+.tweetbox_0 {
+  background: #F1F0F7;
+  border:1px solid #222;
+  margin: 0px;
+  font-size: smaller;
+}
+
+.tweetbox_1 {
+  background:#FFF;
+  border:1px solid #222;
+  margin: 0px;
+  font-size: smaller;
+}
+
+.tweetmsg a  {
+  color: #2B7FFD;
+  text-decoration: none;
+}
+
+.tweetmsg a:link  {
+  color: #2B7FFD;
+}
+
+.tweetmsg a:visited  {
+  color: #2B7FFD;
+}
+
+.tweetmsg a:hover {
+  color: #2FB2FD;
+  text-decoration: underline;
+}
+
+.tweetimg {
+  margin: 3px;
+  /*border: 1px solid #bbb;*/
+  width: 24px;
+  height: 24px;
+}
+
+.tweetimg:hover {
+  cursor: hand;
+  cursor: pointer;
+}
+
+.tweetuser a {
+	font-weight:bold;
+	text-decoration: none;
+  color: #444;
+}
+
+.tweetuser a:HOVER {
+	text-decoration: underline;
+}
+
+.tweetMsgs {
+	border: 1px solid #ddd;
+	background: #E1EFF7;
+	padding: 5px 2px 2px 2px;
+}
+
+.tweetmsg {
+  color: #555;
+}
+
+.tweettime {
+  padding: 0 0 0px 5px;
+  color: #999;
+  font-size: xx-small;
+}
+
+.userimg {
+  float: left;	
+}
+
+.userimg a {
+  text-decoration: none;
+}
+
+/*START Tweet Containers & Boxes*/
+.tweet-container {
+	display: none;	
+}
+
+.tweet-box {
+	display: none;	
+}
+/*END of Tweet Containers & Boxes*/
+
+.tweet-table td {
+  padding: 0px;	
+  vertical-align: top;
+}
+
+.tweet-table {
+  vertical-align: top;
+  padding: 0px;
+  margin: 0px;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.jui-button:HOVER {
+  border: 1px solid #74b2e2; 
+  background: #e4f1fb url(cupertino/images/ui-bg_glass_100_e4f1fb_1x400.png) 50% 50% repeat-x;
+  color: #0070a3; 
+  outline: none;
+  cursor: pointer;	
+}
+
+.jui-button {
+  background:#D7EBF9 url(cupertino/images/ui-bg_glass_80_d7ebf9_1x400.png) repeat-x scroll 50% 50%;
+  border:1px solid #AED0EA;
+  color: #0070a3; /*#2779AA;*/
+  outline-color:-moz-use-text-color;
+  outline-style:none;
+  outline-width:medium;
+  padding: 0px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;	
+  font-size: smaller;
+}
+
+.jui-dark-button {
+  background:#0078AE url(/images/ui-start-button.png) repeat-x scroll 50% 50%;
+	border:1px solid #77D5F7;
+	color:#DDDDDD;
+	font-weight:normal;
+	outline-style:none;
+	outline-width:medium;
+	margin: 0px 0px 0px 5px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius:4px;	
+  border-radius: 4px;	
+}
+
+.jui-dark-button:HOVER {
+	border: 1px solid #74b2e2; 
+ 	background: #F178AE url(/images/ui-start-button.png) 50% 50% repeat-x;
+  color:#FFFFFF; 
+  outline: none;
+  cursor: pointer;
+}
+
+
+.ui-icon { width: 16px; height: 16px; background-image: url(cupertino/images/ui-icons_72a7cf_256x240.png); }
+.ui-icon { display: block; text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; }
+.ui-icon-arrowreturn-1-w { background-position: -64px -64px; }
+.ui-icon-refresh { background-position: -64px -80px; }
+.ui-icon-mail-closed { background-position: -80px -96px; }
+.ui-icon-arrowthick-1-e { background-position: -32px -48px; }
+.ui-icon-home { background-position: 0 -112px; }
+.ui-icon-lightbulb { background-position: -128px -128px; }
+.ui-icon-star { background-position: -224px -112px; }
+.ui-icon-search { background-position: -160px -112px; }
+.ui-state-disabled { opacity: .35; filter:Alpha(Opacity=35); background-image: none; }
+.ui-state-disabled { cursor: default !important; }
+
+
+.main-menu {
+	color: #eee;
+}
+
+.main-menu-item {
+	background: #333;
+	border-bottom: 1px solid #222;
+	cursor: pointer;
+	color: #DDD;
+}
+
+.main-menu-item:HOVER {
+	color: #FFF;
+	background: #444;
+}
+
+.trend-list {
+	padding-left: 20px;
+}
+
+.trend-list a {
+	 	text-decoration: underline;
+}
+
+.section {
+	color:#EEEEEE;
+	font-weight:bold;
+	text-align: center;
+	padding: 3px 0 0 0;
+}
+
+.user-stat-num {
+	color:#666;
+	font-size:x-small;
+	padding:0;
+}
+
+.user-stat-text {
+	color:#777;
+	padding:0;
+	font-size: xx-small;
+}
+
+.user-stat-span {
+	border-left: 1px solid #CCC;
+	padding: 0px 5px; 
+	float: left;
+}
+
+.settings-table {
+	border-collapse: collapse;
+	border: 1px solid #CCC;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	width: 90%;
+	margin-left: 10px;	
+	font-size: smaller;	
+}
+
+.settings-table a {
+	text-decoration: underline;
+} 
+
+.tab-on a {
+	color: #EEE;	
+}
+
+.tab-off a {
+	color: #222;	
+}
+
+.tab a:HOVER {
+	text-decoration: underline;
+}
+
+.RT-icon {
+	border:1px solid #999; 
+	margin: 0 3px 0 0; 
+	float:left;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+} 

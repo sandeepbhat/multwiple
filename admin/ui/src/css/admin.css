@@ -1,0 +1,181 @@
+/* 
+    Document   : index.css
+    Created on : 3 Dec, 2009, 5:29:40 PM
+    Author     : appatil
+    Description: main style sheet for multwiple
+*/
+html {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	/*'bitstream vera serif', 'georgia', serif, 'sans-serif';*/
+	/* And thus we prevent jerkiness, with a always on vertical scroll bar */
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+body {
+  margin: 0 auto;
+  background: #111;
+  color: #EEE;  
+}
+
+.header {
+	background: #222;	
+}
+
+.footer {
+	background: #222;
+	color: #eee;
+	height: 100px;
+}
+
+.footer-text {
+	padding: 10px;	
+}
+
+.main-body {
+	background: #333;	
+	padding: 0px 0px 30px 0px;
+}
+
+table {
+	height: 100%;	
+}
+
+.table-caption {
+	background:#444; 
+}
+
+.table-header {
+	background:#444; 
+}
+
+.page-title {
+	padding: 20px 20px 0 0;
+	font-size: xx-large;
+	font-weight: bold;
+	color: #CCC;
+}
+
+.page-sub-title {
+	padding: 0px 10px 0px 0px;
+	font-size:  x-small;
+	color: #BBB;
+}
+
+a {
+	text-decoration: none;
+	color: #BBB;
+}
+
+a:HOVER {
+	text-decoration: underline;
+	color: #BBB;
+}
+
+.feature-list-table td {
+	vertical-align: top;
+	padding: 0px;
+	margin: 0px;	
+}
+
+.feature-list-table {
+	margin: 0px;	
+}
+
+.feature-list-table ul {
+	padding: 0px 0px 0px 30px;
+	margin: 0px;	
+}
+
+.list-caption {
+	padding: 10px 0px 10px 15px;
+	font-size: large;
+	font-weight: bold;	
+}
+
+.back-to-top {
+	text-align: center;
+	padding: 20px 20px 0 0; 
+	font-weight: bold; 
+	font-size: large;
+}
+
+/* The following CSS are not yet used*/
+.jui-button:HOVER {
+  border: 1px solid #74b2e2; 
+  background: #e4f1fb url(cupertino/images/ui-bg_glass_100_e4f1fb_1x400.png) 50% 50% repeat-x;
+  font-weight: bold; 
+  color: #0070a3; 
+  outline: none;
+  cursor: pointer;	
+}
+
+.jui-button {
+  background:#D7EBF9 url(cupertino/images/ui-bg_glass_80_d7ebf9_1x400.png) repeat-x scroll 50% 50%;
+  border:1px solid #AED0EA;
+  color: #0070a3; /*#2779AA;*/
+  font-weight:bold;
+  outline-color:-moz-use-text-color;
+  outline-style:none;
+  outline-width:medium;
+  padding: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;	
+}
+
+.jui-dark-button {
+  background:#0078AE url(/images/ui-start-button.png) repeat-x scroll 50% 50%;
+	border:1px solid #77D5F7;
+	color:#DDDDDD;
+	font-weight:normal;
+	outline-style:none;
+	outline-width:medium;
+	margin: 0px 0px 0px 5px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius:4px;	
+  border-radius: 4px;	
+}
+
+.jui-dark-button:HOVER {
+	border: 1px solid #74b2e2; 
+ 	background: #F178AE url(/images/ui-start-button.png) 50% 50% repeat-x;
+  color:#FFFFFF; 
+  outline: none;
+  cursor: pointer;
+}
+
+
+.jui-small-button {
+  background:#D7EBF9 url(cupertino/images/ui-bg_glass_80_d7ebf9_1x400.png) repeat-x scroll 50% 50%;
+  border:1px solid #AED0EA;
+  color:#2779AA;
+  font-weight:bold;
+  outline-style:none;
+  outline-width:medium;	
+	-moz-border-radius: 3px;
+	-webkit-border-radius:3px;	
+  border-radius: 3px;
+  padding: 1px 8px;	
+}
+
+.jui-small-button:HOVER {
+  border: 1px solid #74b2e2; 
+  background: #e4f1fb url(cupertino/images/ui-bg_glass_100_e4f1fb_1x400.png) 50% 50% repeat-x;
+  color: #0070a3; 
+  outline: none;
+  cursor: pointer;	
+}
+
+
+.body-table {
+	vertical-align: top;
+}
+
+.body-table td {
+	vertical-align: top;
+}
+
+.user-list-container {
+	width: 250px;
+}

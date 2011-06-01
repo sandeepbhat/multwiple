@@ -1,0 +1,50 @@
+
+		<form action="" method="POST">
+			<h1> Add Project Details </h1>
+      <div>
+        <label for="title">Title of project</label>
+        <textarea id="title"></textarea>
+      </div>
+      <div>
+        <label for="size">Team Size</label>
+        <input type="text" id="size" name="size"/>
+      </div>
+      <div>
+        <label for="dur">Duration</label>
+        <input type="text" id="dur" name="dur"/>
+      
+			<select id="ym">
+				<option selected="selected">- Select One -</option>
+				<option value="1">Months</option>
+				<option value="2">Years</option>
+			</select>
+      </div>
+      <div>
+			<label for="desc">Project Description</label>
+			<textarea id="desc"></textarea>
+      </div>
+			<label for="skill">Skills Used</label>
+			<div id="srcselect">
+			<select id="src" size="4" multiple="multiple"> 
+        <option value="0" SELECTED>-select one-</option>       
+			</select>
+			<label>Select All</label>
+			<input type="checkbox" id="check_src" name="check_src" onchange="select_all('src');"/>
+		</div>
+		<div id="btns">
+			<input type="button" id="rem" name="rem" value=">>" onclick="move(1);"/>
+			<input type="button" id="add" name="add" value="&lt;&lt;" onclick="move(0);"/>			
+		</div> 
+		<div id="dstselect">
+			<select id="dest" size="4" multiple="multiple"></select> 
+      <label>Select All</label>
+			<input type="checkbox" id="check_dst"  name="check_dst" onchange="select_all('dest');"/>
+		</div>
+    </form>
+    <div>
+		<input type="button" id="add" name="add" value="Add"/>
+    </div>  
+	
+  <div>
+    <input type="button" name="next_projects" value="Next" onclick="displayStudentSkills();"/>
+  </div>

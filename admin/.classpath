@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="server/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/usr/lib/jvm/java-6-sun/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="server/lib/postgresql-8.3-605.jdbc4.jar"/>
+	<classpathentry kind="lib" path="server/lib/servlet.jar"/>
+	<classpathentry kind="lib" path="server/lib/mail.jar"/>
+	<classpathentry kind="lib" path="server/lib/commons-codec-1.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="server/lib/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="server/lib/scribe-0.6.6.jar"/>
+	<classpathentry kind="lib" path="server/lib/json_simple-1.1.jar"/>
+	<classpathentry kind="lib" path="server/lib/twitter4j-2.1.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="server/lib/twitter4j-core-2.1.2.jar"/>
+	<classpathentry kind="output" path="server/build"/>
+</classpath>

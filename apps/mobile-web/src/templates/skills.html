@@ -1,0 +1,44 @@
+
+		<form action="">
+			<h1>Skills</h1>
+			<label for="name">Name</label>
+			<input type="text" id="name" name="name"/><br><br>
+			<label for="exp">Experience</label>
+			<input type="text" id="exp" name="exp"/>
+			<select id="dur">
+				<option SELECTED>- Select One -</option>
+				<option>Years</option>
+				<option>Months</option>
+			</select><br><br>		
+			<label>Expertise</label>
+				<img src="images/dullstar.png"  id="star1" onclick="change(1);" onmouseover="disp(1);" onmouseout="reset(1);" />
+				<img src="images/dullstar.png"  id="star2" onclick="change(2);" onmouseover="disp(2);" onmouseout="reset(2);" />
+				<img src="images/dullstar.png"  id="star3" onclick="change(3);" onmouseover="disp(3);" onmouseout="reset(3);" />
+				<img src="images/dullstar.png"  id="star4" onclick="change(4);" onmouseover="disp(4);" onmouseout="reset(4);" />
+				<img src="images/dullstar.png"  id="star5" onclick="change(5);" onmouseover="disp(5);" onmouseout="reset(5);"/><br><br>				
+			<input type="button" id="Add" name="add" value="Add"/><br><br>		
+		</form>
+		<table id="list">
+			<tr>
+				<th id= "column">Select</th>
+				<th id= "column">Skill Name</th>
+				<th id= "column">Experience</th>
+				<th id= "column">Expertise</th>
+				<th id= "column">Edit/Delete</th>
+			</tr>
+			<tr>
+				<td id= "column"><input type="checkbox" id="chk1" name="chk1"></td>
+				<td id= "column">C++</td>
+				<td id= "column">1 month</td>
+				<td id= "column">
+					<img src="images/starbright.png"/>
+					<img src="images/starbright.png"/>	
+				</td>
+				<td id= "column">
+					<a href="">Edit</a>
+					<a href="">Delete</a>
+				</td>
+			</tr>
+		</table>		
+   <br><br>
+   <input type="button" name="next_skills" value="Submit"/>

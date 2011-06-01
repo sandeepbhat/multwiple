@@ -1,0 +1,60 @@
+/************************** S3Slider CSS ***********************************/
+.large-image, #s3slider {
+	height: 400px;
+}
+
+.large-image, #s3slider, #s3sliderContent, .s3sliderImage span {
+	width: 700px;	
+}
+
+#s3slider {
+   position: relative; /* important */
+   overflow: hidden; /* important */
+/*    border: 1px dotted #333; */
+   background: #111;
+}
+
+#s3sliderContent {
+   position: absolute; /* important */
+   top: 0; /* important */
+   margin-left: 0; /* important */
+   list-style-type: none;
+   padding: 0px;
+}
+
+.s3sliderImage {
+   float: left; /* important */
+   position: relative; /* important */
+   display: none; /* important */
+}
+
+.s3sliderImage span {
+   position: absolute; /* important */
+   left: 0;
+   font: sans-serif, Arial, Helvetica;
+   font-size: 100%;
+   padding: 10px 13px;
+   background-color: #000;
+   filter: alpha(opacity=80); /* here you can set the opacity of box with text */
+   -moz-opacity: 0.8; /* here you can set the opacity of box with text */
+   -khtml-opacity: 0.8; /* here you can set the opacity of box with text */
+   opacity: 0.8; /* here you can set the opacity of box with text */
+   color: #ccc;
+   display: none; /* important */
+   bottom: 0;
+   height: 90px;
+   /*
+       if you put
+       top: 0; -> the box with text will be shown at the top of the image 
+       if you put
+       bottom: 0; -> the box with text will be shown at the bottom of the image
+   */
+}
+.s3sliderImage span strong {
+  font-size: x-large;
+}
+
+.clear {
+   clear: both;
+}
+/************************** S3Slider CSS ***********************************/

@@ -1,0 +1,41 @@
+<html>
+<head></head>
+<body>
+<p>This file is required by the Schmap Maps, Events and Photos Plugin: <b>please do not remove it</b>, unless you wish to permanently disable the Plugin.</p>
+<p>Your full plugin path, refered to in the Installation Guide as {YourPluginPath} is as follows:<p>
+<p id="location"></p>
+</body>
+<script type="text/javascript">
+	document.getElementById('location').innerHTML = '<b>'+document.location+'</b>';
+	if (window.location.hash.match('loaded')) {
+		window.top.schmapPlugin.loaded();
+	}
+	else if (window.location.hash.match('resizeMap')) {
+		size = getFromHash('resizeMap');
+		window.top.schmapPlugin.resizeMap(size);
+	}
+	else if (window.location.hash.match('resize')) {
+		size = getFromHash('resize');
+		window.top.schmapPlugin.resize(size);
+	}
+	else if (window.location.hash.match('close')) {
+		window.top.schmapPlugin.closeDiv();
+	}
+	else if (window.location.hash.match('completeSchmap')) {
+		url = getFromHash('completeSchmap');
+		window.top.schmapPlugin.completeSchmap(url);
+	}
+	else if (window.location.hash.match('complete')) {
+		url = getFromHash('complete');
+		window.top.schmapPlugin.complete(url);
+	}
+	function getFromHash(param) {
+		hash = window.location.hash;
+		res = hash.split(param+'='); 
+		if (res[1][0] == '&') 
+			return "";
+		else 
+			return res[1].split('&')[0] || res[1];
+	}
+</script>
+</html>

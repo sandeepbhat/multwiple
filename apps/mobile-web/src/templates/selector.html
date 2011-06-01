@@ -1,0 +1,27 @@
+    <div id="content"> 
+    <form action="">
+      <label>Department Name</label>
+      <input type="text" id="department" name="department"/><br><br>
+			<div id="srcselect"> 
+        <select id="src" size="4" multiple="multiple">
+          <option id="src1" value=1>C++ & C++</option>
+          <option id="src2" value=2>C</option>
+          <option id="src3" value=3>JAVA</option>
+          <option id="src4" value=4>HTML</option>
+        </select><br>
+        <label>Select All</label>
+        <input type="checkbox" id="check_src" name="check_src" onchange="select_all('src');"/>
+      </div>
+      <div id="btns">
+        <input type="button" id="rem" name="rem" value=">>" onclick="move(1);"/><br>
+        <input type="button" id="add" name="add" value="&lt;&lt;" onclick="move(0);"/>
+      </div>
+      <div id="dstselect">
+        <select id="dest" size="4" multiple="multiple"></select><br>
+        <label>Select All</label>
+        <input type="checkbox" id="check_dst"  name="check_dst" onchange="select_all('dest');"/>
+      </div><br>
+    </form>
+   </div>
+   <br><br><input type="button" name="add" value="Add"/><br><br>
+  

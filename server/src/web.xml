@@ -1,0 +1,183 @@
+<web-app version="2.4"
+xmlns="http://java.sun.com/xml/ns/j2ee"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+<servlet>
+	<servlet-name>oauthlogin</servlet-name>
+	<servlet-class>com.spundhan.multwiple.OAuthLogin</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>oauthlogin</servlet-name>
+	<url-pattern>DEBUG/oauth</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>oauthcallback</servlet-name>
+	<servlet-class>com.spundhan.multwiple.OAuthCallBack</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>oauthcallback</servlet-name>
+	<url-pattern>DEBUG/oauthcback</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+	<servlet-name>setFavorite</servlet-name>
+	<servlet-class>com.spundhan.multwiple.MarkFavorite</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>setFavorite</servlet-name>
+	<url-pattern>DEBUG/setFavorite</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>getlogin</servlet-name>
+	<servlet-class>com.spundhan.multwiple.CheckLogin</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>getlogin</servlet-name>
+	<url-pattern>DEBUG/getlogin</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>tweetUpdate</servlet-name>
+	<servlet-class>com.spundhan.multwiple.TweetUpdate</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>tweetUpdate</servlet-name>
+	<url-pattern>DEBUG/tweetUpdate</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>getUpdates</servlet-name>
+	<servlet-class>com.spundhan.multwiple.GetFriendUpdates</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>getUpdates</servlet-name>
+	<url-pattern>DEBUG/getUpdates</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>getDirects</servlet-name>
+	<servlet-class>com.spundhan.multwiple.GetDirectMessages</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>getDirects</servlet-name>
+	<url-pattern>DEBUG/getDirects</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>getMentions</servlet-name>
+	<servlet-class>com.spundhan.multwiple.GetMentions</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>getMentions</servlet-name>
+	<url-pattern>DEBUG/getMentions</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>setSettings</servlet-name>
+  <servlet-class>com.spundhan.multwiple.SetSettings</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>setSettings</servlet-name>
+  <url-pattern>DEBUG/setSettings</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>followURL</servlet-name>
+  <servlet-class>com.spundhan.multwiple.FollowURL</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>followURL</servlet-name>
+  <url-pattern>DEBUG/goto</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>userInfo</servlet-name>
+  <servlet-class>com.spundhan.multwiple.GetUserInfo</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>userInfo</servlet-name>
+  <url-pattern>DEBUG/getUserInfo</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>followUser</servlet-name>
+  <servlet-class>com.spundhan.multwiple.FollowUser</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>followUser</servlet-name>
+  <url-pattern>DEBUG/followUser</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>unfollowUser</servlet-name>
+  <servlet-class>com.spundhan.multwiple.UnfollowUser</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>unfollowUser</servlet-name>
+  <url-pattern>DEBUG/unfollowUser</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>getUserStat</servlet-name>
+  <servlet-class>com.spundhan.multwiple.GetUserStat</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>getUserStat</servlet-name>
+  <url-pattern>DEBUG/getUserStat</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>getRetweets</servlet-name>
+  <servlet-class>com.spundhan.multwiple.GetRetweets</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>getRetweets</servlet-name>
+  <url-pattern>DEBUG/getRetweets</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>getFavorites</servlet-name>
+  <servlet-class>com.spundhan.multwiple.GetFavorites</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>getFavorites</servlet-name>
+  <url-pattern>DEBUG/getFavorites</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>getFriends</servlet-name>
+  <servlet-class>com.spundhan.multwiple.GetFriends</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>getFriends</servlet-name>
+  <url-pattern>DEBUG/getFriends</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>logs</servlet-name>
+  <servlet-class>com.spundhan.multwiple.Log</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>logs</servlet-name>
+  <url-pattern>DEBUG/log</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>Advertisement</servlet-name>
+  <servlet-class>com.spundhan.multwiple.Advertisement</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>Advertisement</servlet-name>
+  <url-pattern>DEBUG/advertise</url-pattern>
+</servlet-mapping>
+
+<welcome-file-list>
+	<welcome-file>/index.html</welcome-file>
+</welcome-file-list>
+
+</web-app>

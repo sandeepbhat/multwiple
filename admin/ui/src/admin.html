@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Multwiple Admin</title>
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /> 
+
+		<link rel="stylesheet" href="charting/css/basic.css" type="text/css"/> 
+		<link rel="stylesheet" href="charting/css/visualize.css" type="text/css"/>
+		<link rel="stylesheet" href="charting/css/visualize-dark.css" type="text/css"/>
+		
+		<link type="text/css" href="css/cupertino/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+		<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />	
+		<!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+		<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />	
+		<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />	
+		<link rel="stylesheet" href="css/admin.css" type="text/css" />
+	
+		<script type="text/javascript" src="scripts/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" src="scripts/jquery-ui-1.7.2.custom.min.js"></script>
+		<script type="text/javascript" src="charting/js/visualize.jQuery.js"></script>
+		<script type="text/javascript" src="scripts/admin.js"></script>
+</head>
+
+<body>
+    <div class="header">
+    		<table>
+    			<tbody>
+    				<tr>
+	   					<td>
+		      			<div style="margin: 0px;">	
+	   	   					<img src="images/logo.png" alt="Multwiple">
+		   	  			</div>
+    					</td>
+    					<td style="text-align: right;"> 
+		      			<div class="page-title"> Multwiple Administrator</div>
+		      			<div class="page-sub-title">
+		      			 	Usage of features offered by 
+		      				<a href="http://multwiple.com" target="_blank">Multwiple</a>.
+		      				Gives a better picture of Users' requirement.
+		      			</div>
+    					</td>
+    				</tr>
+	    	 </tbody>
+	  	</table>
+    </div>
+    
+		<div class=" main-body">
+				<table class="body-table">
+					<tr>
+						<td>
+							<div class="user-list-container">
+								<div class="list-caption" id="feature_list_caption">Users</div>
+								<ul class="user-list" id="user_list">
+									<li>
+										<a href="javascript:getStatistics('All Users');">All Users</a>
+									</li>
+									<li>
+										<a href="javascript:getStatistics('New User');">New User</a>
+									</li>
+								</ul>
+							</div>
+						</td>
+						<td style="width:80%;">
+								<div class="">
+									<div class="list-caption" id="feature_list_caption">Available Statistics</div>
+									<table class="feature-list-table" id="feature_list_table">
+										<tr>
+											<td>
+												<ul>
+													<li>
+														<a href="#sign_in">Sign In</a>
+													</li>
+													<li>
+														<a href="#added_new_account">New Accounts Added</a>
+													</li>
+													<li>
+														<a href="#delete_user">Delete User</a>
+													</li>
+													<li>
+														<a href="#settings">Settings</a>
+													</li>
+												</ul>											
+											</td>
+											<td>
+												<ul>
+													<li>
+														<a href="#RT_by_user">RT By User</a>
+													</li>
+													<li>
+														<a href="#RT_to_user">RT To User</a>
+													</li>
+													<li>
+														<a href="#RT_wc">RT With Comment</a>
+													</li>
+													<li>
+														<a href="#RT_woc">RT Without Comment</a>
+													</li>
+												</ul>
+											</td>
+											<td>
+												<ul>
+													<li>
+														<a href="#tweet">Tweet</a>
+													</li>
+													<li>
+														<a href="#dm">Direct Message</a>
+													</li>
+													<li>
+														<a href="#search">Search</a>
+													</li>
+													<li>
+														<a href="#trends">Trends</a>
+													</li>
+												</ul>
+											</td>
+											<td>
+												<ul>
+													<li>
+														<a href="#follow_user">Follow User</a>
+													</li>
+													<li>
+														<a href="#unfollow_user">Unfollow User</a>
+													</li>
+													<li>
+														<a href="#mark_favorite">Mark Favorite</a>
+													</li>
+													<li>
+														<a href="#unmark_favorite">Unmark Favorite</a>
+													</li>
+												</ul>
+											</td>
+											<td>
+												<ul>
+													<li>
+														<a href="#followers">Get Followers</a>
+													</li>
+													<li>	
+														<a href="#following">Get Following</a>
+													</li>
+													<li>
+														<a href="#favorites">Get Favorites</a>
+													</li>
+													<li>
+														<a href="#user_info">Get User Information</a>
+													</li>
+												</ul>
+											</td>
+											<td>
+												<ul>
+													<li>
+														<a href="#url_shortener">URL Shortner</a>
+													</li>
+													<li>
+														<a href="#follow_url">Follow URL</a>
+													</li>
+												</ul>
+											</td>
+										</tr>
+									</table>
+								</div>
+								
+					      <div class="" id="sign_in">
+					      </div>
+					      <div class="" id="added_new_account">
+					      </div>
+					      <div class="" id=delete_user>
+					      </div>
+				
+					      <div class="" id="settings">
+					      </div>
+					      <div class="" id="RT_by_user">
+					      </div>
+					      <div class="" id="RT_to_user">
+					      </div>
+				
+					      <div class="" id="RT_wc">
+					      </div>
+					      <div class="" id="RT_woc">
+					      </div>
+					      <div class="" id="tweet">
+					      </div>
+				
+					      <div class="" id="dm">
+					      </div>
+					      <div class="" id="search">
+					      </div>
+					      <div class="" id="trends">
+					      </div>
+					      
+					      <div class="" id="follow_user">
+					      </div>
+					      <div class="" id="unfollow_user">
+					      </div>
+					      <div class="" id="mark_favorite">
+					      </div>
+				
+					      <div class="" id="unmark_favorite">
+					      </div>
+					      <div class="" id="followers">
+					      </div>
+					      <div class="" id="following">
+					      </div>
+				
+					      <div class="" id="favorites">
+					      </div>
+					      <div class="" id="user_info">
+					      </div>
+					      <div class="" id="url_shortener">
+					      </div>
+					      <div class="" id="follow_url">
+					      </div>
+						</td>
+					</tr>
+				</table>
+	 	</div>
+	 	
+	 	<div class="footer">
+	 		<div class="span-24 last footer-text">
+	 			&copy; <a href="http://www.spundhan.com" target="_blank">Spundhan Softwares Pvt. Ltd.</a>
+	 		</div> 
+	 	</div>
+</body>
+</html>

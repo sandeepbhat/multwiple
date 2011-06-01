@@ -1,0 +1,984 @@
+/* 
+    Document   : index.css
+    Created on : 3 Dec, 2009, 5:29:40 PM
+    Author     : appatil
+    Description: main style sheet for multwiple
+*/
+html {
+	overflow-y: scroll;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	/*'bitstream vera serif', 'georgia', serif, 'sans-serif';*/
+	/* And thus we prevent jerkiness, with a always on vertical scroll bar */
+}
+
+body {
+  margin: 0 auto;
+  background: #F1FBFF;  
+  overflow: hidden;
+}
+
+/*
+div.logo img {
+  height: 80px;
+  width: 280px; 	
+}
+*/
+
+div.top-header {
+	height: 80px;
+	width: 100%;
+}
+
+div.top-header a:link {
+	border: 0;
+}
+
+div.top-header a:VISITED {
+	border: 0;
+	text-decoration: none;
+}
+
+
+.text-box {
+	color:#777777;
+	padding: 2px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius:3px;
+	border-radius: 3px;
+	margin: 0;
+	
+}
+
+.text-box:FOCUS {
+	color: #222;	
+}
+
+.footer {
+  clear: both;
+  background: #111;
+  color: #aaa; 
+  /*text-align: center;*/ 
+  padding: 10px; 
+}
+
+/*
+.footer a, a:link, a:visited {
+	color: #aaa;
+	text-decoration: none;
+}
+
+.footer a:focus, a:hover {
+	color: #eee;
+	text-decoration: underline;
+}
+*/
+
+.footer-link {
+	text-decoration: none;
+	color: #aaa;
+}
+
+.footer-link:HOVER {
+	color: #ccc;
+	text-decoration: underline;
+}
+
+.tweettime a {
+  text-decoration: none;	
+}
+
+.tweettime a:HOVER {
+  text-decoration: underline;	
+}
+
+.homelink {
+	margin-left: 20px;
+	color: #555;
+	font-size: x-small;
+	vertical-align: text-top;
+}
+
+.homelink:hover {
+	color: #00b;
+	cursor: hand;
+	cursor: pointer;
+}
+
+
+.label {
+	padding-right: 5px;
+	width: 70px;
+	text-align: right;
+	font-size: larger;
+}
+
+.inputField {
+	padding-right: 15px;
+	width: 80%;
+	text-align: left;
+}
+
+.inputButton {
+	margin-top: 5px;
+	padding: 3px 10px 3px 10px;
+	background: #d3d3d3;
+	color: #333;
+	border: 1px solid #999;
+}
+
+.inputButton:hover {
+	background: #DCDCDC;
+	color: #000;
+	cursor: hand;
+	cursor: pointer;
+}
+
+.chars_left {
+	font-size: small;
+	color: #aaa;
+}
+
+/* tweets */
+.tweettitle {
+  padding: 5px 0px 5px 5px;
+  color: #555;
+  margin-bottom: 5px;
+  font-size: smaller;
+}
+
+.tweetbox_0, .tweetbox_1 {
+  margin: 5px;
+  border: 1px solid #ccc;
+  font-size: smaller;
+}
+
+.tweetbox_0 {
+  background: #F1F0F7;
+}
+
+.tweetbox_1 {
+  background:#FFF;
+  border:1px solid #FFC0C0;
+}
+
+.tweetmsg a  {
+  color: #2B7FFD;
+  text-decoration: none;
+}
+
+.tweetmsg a:link  {
+  color: #2B7FFD;
+}
+
+.tweetmsg a:visited  {
+  color: #2B7FFD;
+}
+
+.tweetmsg a:hover {
+  color: #2FB2FD;
+  text-decoration: underline;
+}
+
+.keyword {
+	color: #FF9728;
+}
+
+.tweetimg {
+  margin: 3px;
+  /*border: 1px solid #bbb;*/
+  width: 30px;
+  height: 30px;
+}
+
+.tweetimg:hover {
+  cursor: hand;
+  cursor: pointer;
+}
+
+.tweetuser {
+  font-weight: bold;
+}
+
+.tweetuser a {
+	text-decoration: none;
+}
+
+.tweetuser a:HOVER {
+	text-decoration: underline;
+}
+
+.tweetMsgs {
+	border: 1px solid #ddd;
+	background: #E1EFF7;
+ /* max-height:540px;*/
+	padding: 5px 2px 2px 2px;
+	/*overflow-y: scroll;*/
+}
+
+.tweetmsg {
+  color: #555;
+}
+
+.tweettime {
+  padding: 0 0 2px 5px;
+  color: #999;
+}
+
+.tweetbuttons {
+  vertical-align: bottom;
+  padding-right: 5px;
+  text-align: right;
+  float:right;
+  position: absolute;
+  bottom: inherit - 2px;
+  right: ;
+  display: none;
+}
+
+.tweetbutton {
+  margin-left: 4px;
+  width: 14px;
+  height: 14px;
+}
+
+.tweetbutton:hover {
+  cursor: hand;
+  cursor: pointer;
+}
+
+div.mainScreen {
+	margin-top: 20px;
+	padding: 20px 40px 10px 40px;
+	background: #EBFAF9;
+	border: 1px solid #ddd;
+}
+
+
+.contextMenu LI.reply A { background-image: url(/images/arrow_left.png); }
+.contextMenu LI.retweet A { background-image: url(/images/arrow_rotate_clockwise.png); }
+.contextMenu LI.direct A { background-image: url(/images/email.png); }
+.contextMenu LI.favorite A { background-image: url(/images/star.png); }
+
+img.user-icon {
+  height: 19px;
+  width: 19px;
+  vertical-align: middle;
+  margin: 0px 5px 0px 0px;	
+}
+
+.add-new-icon {
+	margin-bottom: 3px;
+}
+
+#tell_ur_frens:HOVER {
+	cursor: pointer;
+}
+
+	
+.userimg {
+  float: left;	
+}
+
+.userimg a {
+  text-decoration: none;
+}
+
+.sortable-list li {
+  float: left;
+} 
+
+.sortable-list {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+.scrollable {
+  overflow-y: scroll;
+  max-height: 400px; 
+  /*height: 365px;*/
+}
+
+.demo .ui-icon {
+  float: left;
+}
+
+.tweet-header {
+  padding-left: 5px;
+  cursor: move; 
+}
+
+.tweet-header img {
+	vertical-align: middle;
+}
+
+/*Add a minimum height to the div containing the updates, mentions & directs*/ 
+.tweets-container {
+}
+
+.action-icons {
+  display: none;
+}
+
+.action-icons ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.action-icons img {
+  height: 12px;
+  width: 12px;	
+}
+
+.action-icons ul li {
+  /*padding: 2px 0px;*/	
+}
+
+.reply, .retweet, .direct, .favorite :HOVER {
+	cursor: pointer;
+}
+
+span.RT a {
+	text-decoration: none;
+  color: #2B7FFD;	
+}
+
+span.RT a:HOVER {
+	text-decoration: underline;
+  color: #2B7FFD; 
+}
+
+span.RT {
+	color: #999;
+	padding: 0px 0px 2px 3px;
+} 
+
+.tweet-table td {
+  padding: 0px;	
+  vertical-align: top;
+}
+
+
+.tweet-table {
+  vertical-align: top;
+  padding: 0px;
+  margin-bottom: 5px;
+}
+
+.paginate {
+  margin: 2px; 	
+  padding: 0px 10px;
+  height: 20px;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  text-align: center;
+}
+
+.paginate img {
+  height: 16px;
+  width: 16px;	
+  vertical-align: middle;
+}
+
+.paginate a {
+  text-decoration: none;
+}
+
+
+.paginate a:HOVER {
+	 text-decoration: underline;
+   color: #1E5FC0;
+}
+
+.ui-effects-transfer { 
+	border: 2px dotted gray; 
+} 
+
+.transfer {
+	 font-size: xx-small;
+}
+
+.dock-container {
+  margin:0px 0px 2px 2px;
+}
+
+.header-link a {
+	color: #2B7FFD;
+}
+
+.header-link a:HOVER {
+	color: #2B7FFD;
+}
+
+.user-table {
+	margin-top: 10px;
+	padding: 5px;
+}
+
+.user-table .right-column {
+	border-bottom:medium solid #CCCCCC;
+  border-right:medium solid #CCCCCC;
+  border-top:medium solid #CCCCCC;
+  text-align:right;
+}
+
+.user-table .left-column {
+	border-bottom:medium solid #CCCCCC;
+  border-left:medium solid #CCCCCC;
+  border-top:medium solid #CCCCCC;
+	font-weight: bold;
+  padding: 0px 0px 0px 10px;
+	width: 85%;
+}
+
+.user-table a {
+  text-decoration: none;	
+}
+
+.user-table a:HOVER {
+  text-decoration: underline;  
+}
+
+.span-label {
+	font-size: small;
+	font-weight: bold;
+}
+
+.prefernces select {
+	width: 160px;
+	height: 30px;
+	padding: 5px;
+	cursor: auto;
+}
+
+.prefernces select:HOVER {
+  cursor: auto;	
+}
+
+.prefernces table td {
+	width: 50%; 
+}
+
+.footer-heading {
+font-size: 120%; font-weight: bold;
+}
+
+.small-icon {
+  height: 16px;
+  width: 16px;
+  padding-right: 5px;
+  vertical-align: text-bottom;
+}
+
+.smaller-icon {
+  height: 10px;
+  width: 10px;
+  padding:6px 5px 3px 5px;
+  vertical-align: text-bottom;
+}
+
+td.left-dashboard {
+  border-right: 1px solid #AFD0EA;
+  padding: 15px 2px;
+  background: #F1FBFF;
+  width: 250px;
+  height: 550px;
+}
+
+td.left-dashboard img {
+	vertical-align: middle;
+}
+
+table.main-body-table {
+  vertical-align: top;
+  height: 100%;
+  margin: 0px;
+}
+
+table.main-body-table td, tr {
+  vertical-align: top;
+  padding: 0px;
+}
+
+div.dashboard-item {
+  background: #E2EFF7;
+  padding: 5px;
+  margin: 0px 0px 5px 0px;
+}
+
+div.dashboard-sub-item {
+  background: #B2EFF7;
+  padding: 5px;
+  margin: 5px 25px 5px 25px;
+  cursor: pointer;
+  font-size: small;
+}
+
+div.dashboard-sub-item:HOVER {
+  background: #E2EFF7;
+}
+
+span.dashboard-item-name {
+  padding: 0px 0px 0px 5px;
+  cursor: pointer;
+}
+
+div.dashboard-item:HOVER {
+	background: #eee;
+}
+
+td.right-tweetboard {
+  padding: 0px 0px 0px 10px;
+  background: #fff;
+  padding: 0px; 
+}
+
+td.footer-column {
+  	height: 25px;
+}
+
+
+div.settings-panel {
+  float:right;
+  vertical-align: middle;
+  margin-right: 35px;
+  font-weight: normal;
+}
+
+span.close-icon {
+  float:right;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+table.compose-tweet-table {
+	margin-top: 10px;
+	margin-bottom: 0px;
+	vertical-align: top;
+}
+
+table.compose-tweet-table td, tr{
+  padding: 0px 0px 0px 5px;
+  vertical-align: top;
+}
+
+textarea.focus {
+	color: #222;	
+}
+
+textarea.blur {
+	color: #aaa;
+}
+
+td.compose-tweet {
+	width: 530px;
+}
+
+td.submit-tweet {
+	width: 100px;
+}
+
+td.submit-tweet img {
+  vertical-align: middle;
+}
+
+div.tweet-container {
+	padding-bottom: 10px;
+}
+
+div#tweetBox {
+  padding-left: 20px;
+}
+
+textarea.tweet-text-area {
+  border:2px solid #ccc; 
+  height:35px;
+  width:500px; 
+  resize: none;
+  margin: 0px;
+}
+
+
+.bold-text {
+  font-weight: bold;
+}
+
+div#mainBody {
+  height:100%;
+}
+
+.footer-center {
+	display: block; 
+	width: 995px; 
+	margin-left: auto; 
+	margin-right: auto; 
+}
+
+.footer div table {
+	margin: 0;
+	padding: 0 30px;
+}
+
+.footer div table tr td {
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+}
+
+.screenshot {
+}
+
+.sign-in {
+	
+}
+
+.mainButton {
+	padding: 0px 0px 25px 0px;
+}
+
+.screenshot ul {
+  font-size: medium;
+  color: #444;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.screenshot li {
+  margin: 0px;  
+}
+
+.sign-in input {
+  margin: 0px 15px 0px 0px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+
+.jui-button:HOVER {
+  border: 1px solid #74b2e2; 
+  background: #e4f1fb url(cupertino/images/ui-bg_glass_100_e4f1fb_1x400.png) 50% 50% repeat-x;
+  font-weight: bold; 
+  color: #0070a3; 
+  outline: none;
+  cursor: pointer;	
+}
+
+.jui-button {
+  background:#D7EBF9 url(cupertino/images/ui-bg_glass_80_d7ebf9_1x400.png) repeat-x scroll 50% 50%;
+  border:1px solid #AED0EA;
+  color: #0070a3; /*#2779AA;*/
+  font-weight:bold;
+  outline-color:-moz-use-text-color;
+  outline-style:none;
+  outline-width:medium;
+  padding: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;	
+}
+
+.jui-dark-button {
+  background:#0078AE url(/images/ui-start-button.png) repeat-x scroll 50% 50%;
+	border:1px solid #77D5F7;
+	color:#DDDDDD;
+	font-weight:normal;
+	outline-style:none;
+	outline-width:medium;
+	margin: 0px 0px 0px 5px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius:4px;	
+  border-radius: 4px;	
+}
+
+.jui-dark-button:HOVER {
+	border: 1px solid #74b2e2; 
+ 	background: #F178AE url(/images/ui-start-button.png) 50% 50% repeat-x;
+  color:#FFFFFF; 
+  outline: none;
+  cursor: pointer;
+}
+
+
+.jui-small-button {
+  background:#D7EBF9 url(cupertino/images/ui-bg_glass_80_d7ebf9_1x400.png) repeat-x scroll 50% 50%;
+  border:1px solid #AED0EA;
+  color:#2779AA;
+  font-weight:bold;
+  outline-style:none;
+  outline-width:medium;	
+	-moz-border-radius: 3px;
+	-webkit-border-radius:3px;	
+  border-radius: 3px;
+  padding: 1px 8px;	
+}
+
+.jui-small-button:HOVER {
+  border: 1px solid #74b2e2; 
+  background: #e4f1fb url(cupertino/images/ui-bg_glass_100_e4f1fb_1x400.png) 50% 50% repeat-x;
+  color: #0070a3; 
+  outline: none;
+  cursor: pointer;	
+}
+
+
+div#settings_dialog .ui-icon {
+  float: right;  
+}
+
+div.section {
+  border-bottom: 5px solid #ccc;
+}
+
+
+.user-img-column .user-info {
+	margin:7px 0 0;
+}
+
+.user-img-column .user-info .status {
+	font-size: smaller;
+}
+
+.user-img-column .user-info .tweetuser {
+	font-size: smaller;
+}
+
+
+.user-info {
+  background:#222;
+  color: #FFF;
+  padding: 5px;
+  margin:45px 0 0 -7px;
+  opacity:0.9;
+  position:absolute;
+  width:240px;
+  min-height: 100px;
+}
+
+.user-info .ui-icon {
+  cursor: pointer;
+}
+
+.user-info a {
+  text-decoration: none;
+}
+
+.user-info a:HOVER {
+  color: #eee;
+  text-decoration: underline;
+}
+
+.user-info img {
+  vertical-align: middle;
+}
+
+.user-info table, tr, td{
+	margin: 0px;
+}
+
+.following {
+  clear: both;
+  font-weight: bold;
+}
+
+.followers {
+  clear: both;
+  font-weight: bold;
+}
+
+.user-info .user-stat-span {
+	border-left: 1px solid #888;
+	padding: 0px 10px; 
+	float: left;
+}
+
+
+.user-info .user-stat-text {
+	color:#777;
+	padding:0;
+	font-size: smaller;
+}
+
+.user-info .user-stat-num {
+	color:#DDD;
+	font-size:larger;
+	padding:0;
+}
+
+.user-info .status {
+  font-weight: smaller;
+  padding-left: 3px;
+  color: #aaa;
+}
+
+.user-info .follow-user {
+	float:right;
+}
+
+.twitter-error {
+  font-weight:bold;
+  font-size:larger;
+  display:none;
+}
+
+.arrow-left {
+	border-color:transparent #222222 transparent transparent;
+	border-style:solid;
+	border-width:13px;
+	height:0;
+	left:-25px;
+	position:absolute;
+	top:35px;
+	width:0;
+	z-index:0;
+}
+
+.arrow-up {
+	border-color:transparent transparent #222222 transparent;
+	border-style:solid;
+	border-width:13px;
+	height:0;
+	left:12px;
+	position:absolute;
+	top:-25px;
+	width:0;
+	z-index:0;
+}
+
+.user-info-header {
+	
+}
+
+.user-stat-num {
+	color:#666;
+	font-size:large;
+	padding:0;
+}
+
+.user-stat-text {
+	color:#777;
+	padding:0;
+	font-size: smaller;
+}
+
+.user-stat-span {
+	border-left: 1px solid #CCC;
+	padding: 0px 10px; 
+	float: left;
+}
+
+div.user-stats {	
+	margin:10px 0 0;
+	position:absolute;
+}
+
+.header-panel {
+	height: 30px;
+	margin: 40px 15px;
+	float: right;
+}
+
+.header-link-list {
+	list-style-type: none;
+	height: 41px;
+	background: transparent url(/images/navigation.png) repeat-x scroll 0 -41px;
+	padding: 0px;
+	margin: 0px;
+}
+
+.header-link-list li {
+	float: left;
+	line-height: 2px;
+}
+
+.left-start {
+	background: transparent url(/images/navigation.png) no-repeat scroll right top;
+	height: 41px;
+	float: left;
+	width: 5px; 
+}
+
+.right-end {
+	background: transparent url(/images/navigation.png) no-repeat scroll right top;
+	height: 41px;
+	float: left;
+	width: 5px; 
+}
+
+.header-link-list li  a {
+	background: transparent url(/images/navigation_s.png) no-repeat scroll right top;
+	text-decoration: none;
+	color: #CCC;
+	padding: 15px 15px 0px 15px;
+	height: 24px;
+	float: left;
+	cursor: pointer;
+}
+
+.header-link-list li  a:HOVER {
+	text-decoration: none;
+	color: #FFF000;
+	cursor: pointer;
+}
+	
+a:LINK, a:VISITED {
+	border: 0px none;
+}
+
+a:ACTIVE {
+	border: 0px none;	
+}
+	
+.panel-link {
+	padding: 5px;
+}
+
+div.url-shortner {
+	position: absolute;
+	padding: 5px;
+	background: #222;
+	opacity: 0.9;
+	display: none;
+	color: #aaa;
+	margin: 8px 1px 1px 0;
+	width: 500px;
+}
+
+.url-shortner-header .ui-icon {
+	float: right;
+}
+
+input.button-on-right {
+	text-align: right;
+}
+
+input.url-text {
+	width: 300px;
+	height: 25px;	
+}
+
+.tweet-menu {
+	padding: 0 0 0 5px;
+}
+
+.tweet-menu-item {
+	padding: 0px 10px 0px 0px;
+}
+
+.tweet-menu-item a {
+	text-decoration: none;
+	color: #222;
+	font-size: smaller;
+}
+
+.tweet-menu-item a:HOVER {
+	text-decoration: underline;
+	color: #222;	
+}
+
+.trend-list {
+	margin: 5px;
+	padding: 0px 0px 0px 35px;
+}
+
+.trend-list li {
+	cursor: pointer;	
+}
+
