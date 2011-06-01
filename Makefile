@@ -11,7 +11,7 @@ ${TARGET}:
 	make -C server
 	@touch .dummy
 	
-webrun: webdist
+webrun: webdist config/nginx/logs/access.log
 	./webrun.sh
 	
 webdist: all 
@@ -28,7 +28,11 @@ webdist: all
 	@cd tmp; tar zcf ../${DIST_SERVER} server config db run.sh
 	tar -zcvf ${DIST_ALL} ${DIST_SERVER} ${DIST_STATIC} dist/install.sh
 
-mwebrun: mwebdist
+config/nginx/logs/access.log:
+	mkdir -p config/nginx/logs
+	touch config/nginx/logs/access.log
+
+mwebrun: mwebdist 
 	./webrun.sh
 	
 mwebdist: all 
