@@ -27,6 +27,7 @@ ifdef DEBUG
 	@cp src/screenshots.html ${BUILD}/
 	@cp src/terms.html ${BUILD}/
 	@cp src/login.html ${BUILD}/
+	@cp src/open_source.html ${BUILD}/
 	@cp src/mapsPhotosPlugin.html ${BUILD}/
 	cp ${BUILD}/scripts/tmp_compressed.js ${BUILD}/scripts/compressed.js
 	@cp src/css/default.css ${BUILD}/css/
