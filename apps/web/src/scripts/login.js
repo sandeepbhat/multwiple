@@ -95,6 +95,16 @@ function loginAddOnSuccess(user){
 			'			<span class="ui-icon ui-icon-comment"></span>'+
 			'			<span class="dashboard-item-name">Tell Your Friends</span>'+
 			'		</div>'+
+			'		<div class="">&nbsp;</div>'+
+			'		<div class="">&nbsp;</div>'+
+			'		<div class="dashboard-item" onclick="javascript: window.open(\'https://github.com/spundhan/multwiple\', \'\', \'\');">'+
+			'			<span class="">'+
+			'				<img src="images/github-logo.png"/></span>'+
+			'			<span class="dashboard-item-name">'+
+			'				Contribute on'+
+			'				<img src="images/github-logo-text.png"/></span>'+
+			'			</span>'+
+			'		</div>'+
 			'	</td>'+
 			'	<td class="right-tweetboard">'+
 			'		<div id="tweetBox">' +

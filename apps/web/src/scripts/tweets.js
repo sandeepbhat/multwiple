@@ -2531,10 +2531,9 @@ function showHideTrends(userId) {
 
 function getTrends(userId) {
 	
-	var url = 'http://search.twitter.com/trends.json?callback=?';
-//	var url = 'http://api.twitter.com/version/trends/current.format';
+	var url = 'http://api.twitter.com/1/trends.json?callback=?';
 	
-	$("#trends_img_"+userId).fadeIn('slow');
+	$("#trends_img_" + userId).fadeIn('slow');
 	
 	$.getJSON (
 				url, 
@@ -2549,7 +2548,7 @@ function getTrends(userId) {
 					for(var i in response.trends) {
 						var trend = response.trends[i];
 						code += '<li>'+
-								'	<a onmouseover="return (window.status=\'\');" href="javascript:searchTweets('+userId+', 1, \''+trend.name+'\', \'trends\');">'+trend.name+'</a>' +
+								'	<a onmouseover="return (window.status=\'\');" href="#" onclick="javascript:searchTweets('+userId+', 1, \''+trend.name+'\', \'trends\');">'+trend.name+'</a>' +
 								'</li>';
 					}
 					
