@@ -37,9 +37,17 @@ Setup multwiple user for postgresql DB:
     postgre=# CREATE USER mtwiple_user PASSWORD 'yl4FUS456yD3FIghq';
     postgre=# \q
 
-Then do:
+Then checkout the code:
 
     $ git clone https://github.com/$MY_GITHUB_USERNAME/multwiple.git
+
+Then create DB for multwiple:
+
+    $ cd multwiple/db
+    $ ./restore.sh
+
+Then do:
+
     $ cd multwiple
     $ make webrun DEBUG=1 # for debug mode
 
