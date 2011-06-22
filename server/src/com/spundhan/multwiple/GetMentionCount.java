@@ -20,7 +20,7 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.http.AccessToken;
+import twitter4j.auth.AccessToken;
 
 public class GetMentionCount extends HttpServlet {
 
@@ -35,7 +35,6 @@ public class GetMentionCount extends HttpServlet {
 		DB db = new DB();
 		connection = db.getConnection();
 	}
-
 	
 	@Override
 	public void destroy() {
@@ -65,11 +64,7 @@ public class GetMentionCount extends HttpServlet {
 		
 		System.out.println("GetMentionCount: userId:" + userId + ", groupId: " + groupId + ", session: " + session);
 		
-		/*
-		* Set the content type(MIME Type) of the response.
-		*/
 		response.setContentType("application/json");
-
 		PrintWriter out = response.getWriter();
 		
 		DB db = new DB();
@@ -81,33 +76,30 @@ public class GetMentionCount extends HttpServlet {
 			return;
 		}
 		
+		Twitter twitter = new TwitterFactory().getInstance();
 		Properties prop = TwitterProperties.getProperties();
-		Twitter twitter = new TwitterFactory().getOAuthAuthorizedInstance(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"), accessToken);
+		twitter.setOAuthConsumer(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"));
+		twitter.setOAuthAccessToken(accessToken);
+
 		int newTweetCount = 0;
 		try {
-			
 			ResponseList<Status> tweets = twitter.getMentions();
-			
 			long oldTweetId = getLastReadMention(userId);
-			
 			for (Status status : tweets) {
 					if(oldTweetId < status.getId()){
 						newTweetCount++;
 					}
 			}
-
-		} catch (TwitterException e) {
-			//		e.printStackTrace();
-//			System.err.println("ERROR: " + e.getLocalizedMessage());
+		} 
+		catch (TwitterException e) {
+			e.printStackTrace();
 			out.print("{\"success\": false, \"msg\": \"" + TwitterError.getErrorMessage(e.getStatusCode()) + "\"}");
 			out.close();
 			return;
 		}
 
-		out.print("{ \"success\": true," +
-					"\"count\": "+ newTweetCount + " }");
+		out.print("{ \"success\": true, \"count\": "+ newTweetCount + " }");
 		out.close();
-		System.out.println("GetMentionCount("+ userId +"): exit(true)");
 		return;
 	}
 	
@@ -123,7 +115,8 @@ public class GetMentionCount extends HttpServlet {
 				return rs.getLong(1);
 			}
 			s.close();
-		} catch (SQLException se) {
+		} 
+		catch (SQLException se) {
 			System.err.println("We got an exception while executing our query:" +
 			"that probably means our SQL is invalid");
 			se.printStackTrace();
@@ -131,6 +124,5 @@ public class GetMentionCount extends HttpServlet {
 		System.out.println("getLastReadMention: exit(false) :" + userId);
 		return 0;
 	}
-	
 }
 

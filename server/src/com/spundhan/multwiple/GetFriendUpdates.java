@@ -21,7 +21,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
-import twitter4j.http.AccessToken;
+import twitter4j.auth.AccessToken;
 
 public class GetFriendUpdates extends HttpServlet {
 
@@ -96,11 +96,16 @@ public class GetFriendUpdates extends HttpServlet {
 			return;
 		}
 
+		Twitter twitter = new TwitterFactory().getInstance();
 		Properties prop = TwitterProperties.getProperties();
-		Twitter twitter = new TwitterFactory().getOAuthAuthorizedInstance(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"), accessToken);
-		int newTweetCount = 0, oldTweetCount = 0;
+		twitter.setOAuthConsumer(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"));
+		twitter.setOAuthAccessToken(accessToken);
+		
+		int newTweetCount = 0;
+		int oldTweetCount = 0;
 		String tweetJSON = "[";
 		int newPage = page;
+		
 		try {
 			long oldTweetId = getLastReadTweet(userId);
 			long newTweetId = oldTweetId;

@@ -23,7 +23,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
-import twitter4j.http.AccessToken;
+import twitter4j.auth.AccessToken;
 
 public class GetDirectMessages extends HttpServlet {
 
@@ -52,7 +52,6 @@ public class GetDirectMessages extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("GetDirectMessages: enter");
 		String user = request.getParameter("user");
 		String group = request.getParameter("gid");
 		String session = request.getParameter("session");
@@ -77,13 +76,7 @@ public class GetDirectMessages extends HttpServlet {
 			groupId = Integer.parseInt(group);
 		}
 		
-		System.out.println("GetDirectMessages: userId:" + userId + ", groupId: " + groupId + ", session: " + session);
-		
-		/*
-		* Set the content type(MIME Type) of the response.
-		*/
 		response.setContentType("application/json");
-
 		PrintWriter out = response.getWriter();
 		
 		DB db = new DB();
@@ -91,12 +84,14 @@ public class GetDirectMessages extends HttpServlet {
 		if(userId == 0 || groupId == 0 || session.equals("") || accessToken == null){
 			out.print("{\"success\": false, \"msg\": \"Authentication failed.\"}");
 			out.close();
-			System.out.println("GetDirectMessages: exit(false)");
 			return;
 		}
 		
+		Twitter twitter = new TwitterFactory().getInstance();
 		Properties prop = TwitterProperties.getProperties();
-		Twitter twitter = new TwitterFactory().getOAuthAuthorizedInstance(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"), accessToken);
+		twitter.setOAuthConsumer(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"));
+		twitter.setOAuthAccessToken(accessToken);
+
 		int newDirectCount = 0;
 		String tweetJSON = "[";
 		try {
@@ -140,47 +135,30 @@ public class GetDirectMessages extends HttpServlet {
 					"\"img\": \""+ Constants.escape(imgUrl) +"\",";
 					
 					if(oldDirectId >= currentDirectId){
-//						System.out.println("Old Direct: " + currentDirectId + "(" + oldDirectId + ")");
 						tweetJSON += "\"old\":true}";
 					}
 					else {
 						newDirectCount++;
-//						System.out.println("New Direct: " + currentDirectId + "(" + oldDirectId + ")");
 						if(newDirectId < currentDirectId){
 							newDirectId = currentDirectId;
 						}
 						tweetJSON += "\"old\":false}";
 					}
-					
 					i++;
 				}
 			}
 
-			System.out.println("Old Direct: " + oldDirectId + ", new Direct: " + newDirectId);
-			
 			if(newDirectId > oldDirectId){
 				updateLastReadDirect(userId, newDirectId);
 			}
-
-			/* test-data when internet is not UP */
-			//		tweetJSON += "{ " +
-			//		"\"text\": \"This is a test tweet.\"," + 
-			//		"\"date\": \"31-12-2009\"," +
-			//		"\"user\": \"ammubhai\"," +
-			//		"\"src\": \"echofone\"," +
-			//		"\"img\": \"images/user1.png\"" +
-			//		"}";
-		} catch (TwitterException e) {
-			//		e.printStackTrace();
-//			System.err.println("ERROR: " + e.getLocalizedMessage());
-//			String errText = e.getMessage();
-//			int index = errText.indexOf("<!DOCTYPE ");
-//			String errorMsg = errText.substring(0, index - 1);
-//			errorMsg = errorMsg.replaceAll("(\r\n|\r|\n|\n\r)", "");
+		}
+		catch (TwitterException e) {
+			e.printStackTrace();
 			out.print("{\"success\": false, \"msg\": \"" + TwitterError.getErrorMessage(e.getStatusCode()) + "\"}");
 			out.close();
 			return;
 		}
+		
 		tweetJSON += "]";
 
 		out.print("{ \"success\": true," +
@@ -188,38 +166,32 @@ public class GetDirectMessages extends HttpServlet {
 					"\"result\": " + tweetJSON + "," + 
 					"\"count\": "+ newDirectCount + " }");
 		out.close();
-		System.out.println("GetDirectMessages("+ userId +"): exit(true)");
-		return;
-		
 	}
 
 	private void updateLastReadDirect(int userId, long newDirectId) {
 		int m = 0;
 		PreparedStatement ps = null;
-		System.out.println("updateLastReadDirect: enter:");
 		try {
 			ps = connection.prepareStatement("UPDATE main.user_tokens SET direct_id=? WHERE id=?");
 			ps.setLong(1, newDirectId);
 			ps.setInt(2, userId);
-		} catch (SQLException se) {
-			System.out.println("updateLastReadDirect: ERROR prep SQL");
+		}
+		catch (SQLException se) {
 			se.printStackTrace();
 		}
 
 		try {
 			m = ps.executeUpdate();
 			ps.close();
-		} catch (SQLException se) {
-			System.out.println("updateLastReadDirect: ERROR exec SQL");
+		} 
+		catch (SQLException se) {
 			se.printStackTrace();
 		} 
-		System.out.println("updateLastReadDirect: Successfully added " + m + " row(s). ROWID: ");
 	}
 
 	private long getLastReadDirect(int userId) {
 		Statement s = null;
 		ResultSet rs = null;
-		System.out.println("getLastReadDirect: enter:" + userId);
 		try {
 			s = connection.createStatement();
 			rs = s.executeQuery("SELECT direct_id FROM main.user_tokens " +
@@ -228,13 +200,10 @@ public class GetDirectMessages extends HttpServlet {
 				return rs.getLong(1);
 			}
 			s.close();
-		} catch (SQLException se) {
-			System.err.println("We got an exception while executing our query:" +
-			"that probably means our SQL is invalid");
+		} 
+		catch (SQLException se) {
 			se.printStackTrace();
 		}
-		System.out.println("getLastReadDirect: exit(false) :" + userId);
 		return 0;
 	}
-	
 }

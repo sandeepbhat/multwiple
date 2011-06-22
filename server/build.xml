@@ -23,11 +23,12 @@
           <pathelement path="${classpath}"/>
           <pathelement location="lib/servlet.jar"/>
           <pathelement location="lib/mail.jar"/>
-            <pathelement location="lib/postgresql-8.3-605.jdbc4.jar"/>
-            <pathelement location="lib/twitter4j-core-2.1.2.jar"/>
-            <pathelement location="lib/scribe-0.6.6.jar"/>
-            <pathelement location="lib/json_simple-1.1.jar"/>
-            <pathelement location="lib/commons-codec-1.4.jar"/>
+          <pathelement location="lib/log4j-1.2.16.jar"/>
+          <pathelement location="lib/postgresql-8.3-605.jdbc4.jar"/>
+          <pathelement location="lib/twitter4j-core-2.2.3.jar"/>
+          <pathelement location="lib/scribe-0.6.6.jar"/>
+          <pathelement location="lib/json_simple-1.1.jar"/>
+          <pathelement location="lib/commons-codec-1.4.jar"/>
         </classpath>
     </javac>
   </target>

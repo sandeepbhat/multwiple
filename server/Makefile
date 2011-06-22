@@ -16,6 +16,7 @@ ifdef DEBUG
 else
 	@sed 's|DEBUG||' src/web.xml > ${BUILD}/WEB-INF/web.xml
 endif	
+	@cp src/log4j.conf ${BUILD}/WEB-INF/
 	@cp -R dist/*.jar ${BUILD}/WEB-INF/lib/
 	@cp -R lib/*.jar ${BUILD}/WEB-INF/lib/
 	@echo ">> Server: distributed."

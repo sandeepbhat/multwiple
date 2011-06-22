@@ -18,7 +18,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
-import twitter4j.http.AccessToken;
+import twitter4j.auth.AccessToken;
 
 public class GetRetweets extends HttpServlet {
 
@@ -81,13 +81,8 @@ public class GetRetweets extends HttpServlet {
 
 		System.out.println("GetRetweets: userId:" + userId + ", groupId: " + groupId + ", session: " + session);
 
-		/*
-		 * Set the content type(MIME Type) of the response.
-		 */
 		response.setContentType("application/json");
-
 		PrintWriter out = response.getWriter();
-
 
 		AccessToken accessToken = db.isSessionValid(userId, groupId, session);
 		if(userId == 0 || groupId == 0 || session.equals("") || accessToken == null){
@@ -97,8 +92,11 @@ public class GetRetweets extends HttpServlet {
 			return;
 		}
 
+		Twitter twitter = new TwitterFactory().getInstance();
 		Properties prop = TwitterProperties.getProperties();
-		Twitter twitter = new TwitterFactory().getOAuthAuthorizedInstance(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"), accessToken);
+		twitter.setOAuthConsumer(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"));
+		twitter.setOAuthAccessToken(accessToken);
+		
 		String tweetJSON = "[";
 
 		try {

@@ -3,9 +3,7 @@ package com.spundhan.multwiple;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Properties;
 
 import javax.servlet.ServletException;
@@ -16,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.http.AccessToken;
+import twitter4j.auth.AccessToken;
 
 public class FollowUser extends HttpServlet {
 
@@ -81,12 +79,15 @@ public class FollowUser extends HttpServlet {
 			return;
 		}
 		
+		Twitter twitter = new TwitterFactory().getInstance();
 		Properties prop = TwitterProperties.getProperties();
-		Twitter twitter = new TwitterFactory().getOAuthAuthorizedInstance(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"), accessToken);
-		
+		twitter.setOAuthConsumer(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"));
+		twitter.setOAuthAccessToken(accessToken);
+
 		try {
 			twitter.createFriendship(username, true);
-		} catch (TwitterException e) {
+		} 
+		catch (TwitterException e) {
 			out.print("{\"success\": false, \"msg\": \"" + TwitterError.getErrorMessage(e.getStatusCode()) + "\"}");
 			out.close();
 			System.out.println("FollowUser("+ userId +"): exit(false)");

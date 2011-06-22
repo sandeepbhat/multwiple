@@ -12,44 +12,41 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class registerUser
- */
+import org.apache.log4j.Logger;
+
 public class CheckLogin extends HttpServlet {
 
 	private static final long serialVersionUID = -872625933096069088L;
-
+	private Logger log;
+	
+	@Override
+	public void init() throws ServletException {
+		log = Logger.getRootLogger();
+		super.init();
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.err.println("/s/getLogin: enter");
+		response.setContentType("application/json");
+		PrintWriter out = response.getWriter();
+		
 		Cookies cookies = new Cookies(request);
 		int groupId = cookies.getGroupId();
 		String session = cookies.getSession();
 		int interval = cookies.getUpdateInterval();
 		
-		System.out.println("Group ID:" + groupId + ", Session: " + session);
-		// send email notification
-//		new EmailThread(request.getServerName(), request.getRemoteAddr(), request.getRemoteHost(), "CheckLogin\n GroupId:" + groupId + "\nSession: " + session).start();
+		log.debug("CheckLogin: Group ID: " + groupId + ", Session: " + session);
 
-		System.out.println("Group ID:" + groupId + ", Session: " + session);
-		/*
-		* Set the content type(MIME Type) of the response.
-		*/
-		response.setContentType("application/json");
-
-		PrintWriter out = response.getWriter();
-		
-		if(session == null || groupId == 0){
+		if (session == null || groupId == 0) {
 			cookies.deleteAllCookies(response);
 			out.print("var login_state = { success: false};");
-			System.out.println("CheckLogin: exit1(false)");
+			log.error("CheckLogin: session or groupId is incorrect.");
 			return;
 		}
 		
-		// add record in the DB
-		if((interval = isSessionValid(groupId, session)) == 0){
+		if ((interval = isSessionValid(groupId, session)) == 0) {
 			cookies.deleteAllCookies(response);
 			out.print("var login_state = {success: false};");
-			System.out.println("CheckLogin: exit2(false)");
+			log.error("CheckLogin: User session is no more valid.");
 			return;
 		}
 
@@ -60,7 +57,7 @@ public class CheckLogin extends HttpServlet {
 		out.print("var login_state = {\"success\":true, \"gid\":"+ groupId +", \"session\": \"" + session +"\", \"interval\": "+ interval +", \"users\":" + cookies.getUsersJSON() + "};");
 		out.close();
 		
-		System.out.println("CheckLogin: exit(true)");
+		log.debug("CheckLogin: All OK. Login success.");
 	}
 
 	private int isSessionValid(int groupId, String session) {
@@ -69,8 +66,6 @@ public class CheckLogin extends HttpServlet {
 		Statement s = null;
 		ResultSet rs = null;
 		int result = 0;
-		System.out.println("isSessionValid: enter");
-
 		try {
 			s = connection.createStatement();
 			rs = s.executeQuery("SELECT update_interval FROM main.user_group " +
@@ -79,18 +74,18 @@ public class CheckLogin extends HttpServlet {
 				result = rs.getInt(1);
 			}
 			s.close();
-		} catch (SQLException se) {
-			System.err.println("We got an exception while executing our query:" +
-			"that probably means our SQL is invalid");
+		}
+		catch (SQLException se) {
 			se.printStackTrace();
-			System.out.println("queryUserData: exit(null)");
+			log.error("CheckLogin: isSessionValid: SQL Exception: " + se.getMessage());
 			return 0;
 		}
 
 		try {
 			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		}
+		catch (SQLException e) {
+			log.error("CheckLogin: isSessionValid: SQL Exception: " + e.getMessage());
 			e.printStackTrace();
 		}
 		return result;

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.http.AccessToken;
+import twitter4j.auth.AccessToken;
 
 public class GetUserInfo extends HttpServlet {
 
@@ -64,9 +64,6 @@ public class GetUserInfo extends HttpServlet {
 
 		System.out.println("GetUserInfo: userId:" + userId + ", groupId: " + groupId + ", session: " + session);
 
-		/*
-		 * Set the content type(MIME Type) of the response.
-		 */
 		response.setContentType("application/json");
 
 		PrintWriter out = response.getWriter();
@@ -80,8 +77,11 @@ public class GetUserInfo extends HttpServlet {
 			return;
 		}
 
+		Twitter twitter = new TwitterFactory().getInstance();
 		Properties prop = TwitterProperties.getProperties();
-		Twitter twitter = new TwitterFactory().getOAuthAuthorizedInstance(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"), accessToken);
+		twitter.setOAuthConsumer(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"));
+		twitter.setOAuthAccessToken(accessToken);
+
 		String twitterJSON = "\"user\":{";
 		try {
 			twitter4j.User twitterUser = twitter.showUser(username);

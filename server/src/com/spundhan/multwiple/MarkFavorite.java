@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.http.AccessToken;
+import twitter4j.auth.AccessToken;
 
 public class MarkFavorite extends HttpServlet {
 
@@ -70,9 +70,10 @@ public class MarkFavorite extends HttpServlet {
 			return;
 		}
 
+		Twitter twitter = new TwitterFactory().getInstance(accessToken);
 		Properties prop = TwitterProperties.getProperties();
-		Twitter twitter = new TwitterFactory().getOAuthAuthorizedInstance(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"), accessToken);
-
+		twitter.setOAuthConsumer(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"));
+		twitter.setOAuthAccessToken(accessToken);
 
 		try {
 			if(mark) {
@@ -81,9 +82,9 @@ public class MarkFavorite extends HttpServlet {
 			else {
 				twitter.destroyFavorite(tweetId);
 			}
-		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			//			e.printStackTrace();
+		}
+		catch (TwitterException e) {
+			e.printStackTrace();
 			System.err.println("ERROR: " + e.getLocalizedMessage());
 			out.print("{\"success\": false, \"msg\": \"Login details incorrect. Please check your username and password are correct.\"}");
 			out.close();

@@ -11,15 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import twitter4j.Query;
-import twitter4j.QueryResult;
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
-import twitter4j.http.AccessToken;
+import twitter4j.auth.AccessToken;
 
 public class GetFavorites extends HttpServlet {
 
@@ -78,11 +76,7 @@ public class GetFavorites extends HttpServlet {
 
 		System.out.println("GetFavorites: userId:" + userId + ", groupId: " + groupId + ", session: " + session);
 
-		/*
-		 * Set the content type(MIME Type) of the response.
-		 */
 		response.setContentType("application/json");
-
 		PrintWriter out = response.getWriter();
 
 		AccessToken accessToken = db.isSessionValid(userId, groupId, session);
@@ -93,12 +87,13 @@ public class GetFavorites extends HttpServlet {
 			return;
 		}
 
+		Twitter twitter = new TwitterFactory().getInstance();
 		Properties prop = TwitterProperties.getProperties();
-		Twitter twitter = new TwitterFactory().getOAuthAuthorizedInstance(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"), accessToken);
+		twitter.setOAuthConsumer(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"));
+		twitter.setOAuthAccessToken(accessToken);
+
 		String tweetJSON = "[";
-
 		try {
-
 			ResponseList<Status> tweets = twitter.getFavorites(page);
 			int i = 0;
 			for (Status status : tweets) {
@@ -110,7 +105,7 @@ public class GetFavorites extends HttpServlet {
 					tweetJSON += ",";
 				}
 				
-				tweetJSON +="{ " + "\"id\":" + currentTweetId + ",";
+				tweetJSON +="{" + "\"id\":\"" + currentTweetId + "\",";
 				
 				if(retweetStatus != null){
 					tweetJSON +=
@@ -120,12 +115,12 @@ public class GetFavorites extends HttpServlet {
 												"\"src\": \"" + Constants.escape(retweetStatus.getSource()) + "\"," +
 												"\"img\": \""+ Constants.escape(retweetStatus.getUser().getProfileImageURL().toString()) +"\"," +
 												"\"RT\":\""+tweetUser.getScreenName()+"\"," +
-												"\"RID\": " + retweetStatus.getId() + ",";
+												"\"RID\": \"" + retweetStatus.getId() + "\",";
 					if(retweetStatus.isFavorited()) {
-						tweetJSON += "\"favorite\":true,";
+						tweetJSON += "\"favorite\":true";
 					}
 					else {
-						tweetJSON += "\"favorite\":false,";
+						tweetJSON += "\"favorite\":false";
 					}
 				}
 				else {
@@ -137,10 +132,10 @@ public class GetFavorites extends HttpServlet {
 												"\"img\": \""+ Constants.escape(tweetUser.getProfileImageURL().toString()) +"\"," +
 												"\"RT\": \"\",";
 					if(status.isFavorited()) {
-						tweetJSON += "\"favorite\":true,";
+						tweetJSON += "\"favorite\":true";
 					}
 					else {
-						tweetJSON += "\"favorite\":false,";
+						tweetJSON += "\"favorite\":false";
 					}
 				}
 				tweetJSON += "}";

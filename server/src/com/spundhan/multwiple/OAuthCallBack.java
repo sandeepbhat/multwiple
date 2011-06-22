@@ -24,7 +24,7 @@ import org.scribe.oauth.Token;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.http.AccessToken;
+import twitter4j.auth.AccessToken;
 
 
 public class OAuthCallBack extends HttpServlet {
@@ -321,9 +321,12 @@ public class OAuthCallBack extends HttpServlet {
 		}
 		int twitterId = Integer.parseInt(map.get("user_id"));
 		String username = map.get("screen_name");
-		Properties prop = TwitterProperties.getProperties();
 		AccessToken accessToken = new AccessToken(token.getToken(), token.getSecret());
-		Twitter twitter = new TwitterFactory().getOAuthAuthorizedInstance(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"), accessToken);
+		Twitter twitter = new TwitterFactory().getInstance();
+		Properties prop = TwitterProperties.getProperties();
+		twitter.setOAuthConsumer(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"));
+		twitter.setOAuthAccessToken(accessToken);
+
 		String imgUrl = "";
 		try {
 			twitter4j.User user = twitter.showUser(twitterId);

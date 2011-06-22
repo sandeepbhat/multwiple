@@ -9,6 +9,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 
 
 public class Cookies {
@@ -19,146 +21,138 @@ public class Cookies {
 	private int groupId = 0;
 	private String session = "";
 	private int updateInterval = 1;
+	private Logger log;
+	
+	public Cookies (HttpServletRequest request) {
+		log = Logger.getRootLogger();
 
-	public Cookies(HttpServletRequest request){
+		/* Cookies must exist. 
+		 * Otherwise use has not logged in.
+		 */
 		Cookie[] cookies = request.getCookies();
-		if(cookies != null && cookies.length > 0){
+		if (cookies != null && cookies.length > 0) {
+			/* Go through the list of cookies and get the ones required. */
 			for (Cookie cookie : cookies) {
 				String cookieName = cookie.getName();
-				if(cookieName.equals("session") && cookie.getValue().length()  > 0){
+				/* Get session cookie. */
+				if (cookieName.equals("session") && cookie.getValue().length()  > 0) {
 					session = cookie.getValue();
-					System.out.println("Session: " + session);
 				}
-				// @deprecated. not using the users cookie anymore.
-//				else if(cookieName.equals("users")){
-//					try {
-//						String usersStr = cookie.getValue();
-//						if(usersStr == null || usersStr.length() == 0){
-//							continue;
-//						}
-//						System.out.println("Users: " + usersStr);
-//						JSONArray array = (JSONArray)JSONValue.parse(usersStr);
-//						if(array == null){
-//							System.out.println("JSON Array: " + array);
-//							continue;
-//						}
-//						System.out.println("JSON Array-Size: " + array.size());
-//						users = new User[array.size()];
-//						userCount = 0;
-//						/*Taking elements from array*/
-//						for (Object object : array) {
-//							JSONObject o = (JSONObject)object;
-//							long id = (Long) o.get("id");
-//							String name = (String) o.get("name");
-//							System.out.println("User Id: " + id + ", User Name: " + name);
-//							users[userCount] = new User((int)id,name);
-//							userCount++;
-//						}	
-//
-//					} catch (NumberFormatException e){
-//						userCount = 0;
-//					}
-//				}
-				else if(cookieName.equals("usergid")){
+				else if (cookieName.equals("usergid")) {
+					/* Get user group id cookie. */
 					String group = cookie.getValue();
-					if(group == null || group.length() == 0){
+					if (group == null || group.length() == 0) {
 						continue;
 					}
 					groupId = Integer.parseInt(group);
-					System.out.println("Group ID: " + groupId);
 				}
-				else if(cookieName.equals("interval")){
+				else if(cookieName.equals("interval")) {
+					/* Get update interval cookie. */
 					String interval = cookie.getValue();
-					if(interval == null || interval.length() == 0){
+					if (interval == null || interval.length() == 0) {
 						continue;
 					}
 					updateInterval = Integer.parseInt(interval);
-					System.out.println("Update Interval: " + updateInterval);
 				}
 			}
-
 		}
-		
 		getUsers();
-
 	}
 
-	public boolean isAlreadyThere(int userId) {
+	public boolean isAlreadyThere (int userId) {
 		for (User user : users) {
-			if(user.getId() == userId){
+			if (user.getId() == userId) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public void deleteCookie(HttpServletResponse response, String cookieName) {
+	public void deleteCookie (HttpServletResponse response, String cookieName) {
 		Cookie cookie = new Cookie(cookieName, "");
 		cookie.setMaxAge(-1); // cookie expires immediately
 		response.addCookie(cookie);
 	}
 
-	public void deleteAllCookies(HttpServletResponse response) {
+	public void deleteAllCookies (HttpServletResponse response) {
 		deleteCookie(response, "session");
 		deleteCookie(response, "users");
 		deleteCookie(response, "usergid");
 		deleteCookie(response, "interval");
 	}
 
-
 	public int getUserCount() {
 		return userCount;
 	}
 
 	public User[] getUsers() {
-		DB db = new DB();
-		Statement s = null;
-		ResultSet rs = null;
-		System.out.println("prepareUserJSON: enter, groupId: " + groupId);
-		Connection  connection = db.getConnection();
+		log.debug("Cookies: prepareUserJSON: Enter: groupId: " + groupId);
+
+		Connection connection = new DB().getConnection();
+		
 		try {
-			s = connection.createStatement();
-			rs = s.executeQuery("SELECT count(id) FROM main.user_tokens " +
-					"WHERE group_id = '"+ groupId +"';");
+			Statement s = connection.createStatement();
+			ResultSet rs = s.executeQuery (
+					"SELECT " +
+						"count(id) " +
+					"FROM " +
+						"main.user_tokens " +
+					"WHERE " +
+						"group_id = '"+ groupId + "';"
+			);
 			userCount = 0;
+			
 			if (rs.next()) {
 				userCount = rs.getInt(1);
 			}
+			
 			rs.close();
 			
-			if(userCount > 0){
-				rs = s.executeQuery("SELECT id,screen_name,image_url FROM main.user_tokens " +
-						"WHERE group_id = '"+ groupId +"';");
+			if (userCount > 0) {
+				rs = s.executeQuery (
+						"SELECT " +
+							"id, " +
+							"screen_name, " +
+							"image_url " +
+						"FROM " +
+							"main.user_tokens " +
+						"WHERE " +
+							"group_id = '" + groupId + "';"
+				);
+				
 				int count = 0;
 				users = new User[userCount];
+				
 				while (rs.next()) {
 					users[count] = new User(rs.getInt(1), rs.getString(2), rs.getString(3));
+					users[count].setSession(session);
+					users[count].setGroupId(groupId);
 					count++;
-					System.out.println("prepareUserJSON: id: "+ rs.getInt(1) + ", name: " + rs.getString(2));
 				}
 			}
 			rs.close();
 			s.close();
-		} catch (SQLException se) {
-			System.err.println("We got an exception while executing our query:" +
-			"that probably means our SQL is invalid");
+		} 
+		catch (SQLException se) {
+			log.error("Cookies: prepareUserJSON: SQL Exception: " + se.getMessage());
 			se.printStackTrace();
-			System.out.println("prepareUserJSON: exit(false)");
 			return null;
 		}
 
 		try {
 			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (SQLException e) {
+			log.error("Cookies: prepareUserJSON: SQL Exception: " + e.getMessage());
 			e.printStackTrace();
 			return null;
 		}
 		
 		try {
 			connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		}
+		catch (SQLException e) {
+			log.error("Cookies: prepareUserJSON: SQL Exception: " + e.getMessage());
 			e.printStackTrace();
 		}
 		return users;
@@ -187,20 +181,12 @@ public class Cookies {
 		cookie.setPath("/");
 		cookie.setMaxAge(DEFAULT_EXPIRY_TIME); 
 		response.addCookie(cookie);
-		System.out.println("Created session cookie:" + session);
 		
 		cookie = new Cookie("usergid", groupId+"");
 		cookie.setPath("/");
 		cookie.setMaxAge(DEFAULT_EXPIRY_TIME); 
 		response.addCookie(cookie);
-		System.out.println("Created GroupId cookie: " + groupId);
 		
-//		cookie = new Cookie("users", getUsersJSON());
-//		cookie.setPath("/");
-//		cookie.setMaxAge(DEFAULT_EXPIRY_TIME); 
-//		response.addCookie(cookie);
-//		System.out.println("Created Users cookie: ");
-
 		cookie = new Cookie("interval", updateInterval+"");
 		cookie.setPath("/");
 		cookie.setMaxAge(DEFAULT_EXPIRY_TIME); 
@@ -211,9 +197,9 @@ public class Cookies {
 		String userStr = "[";
 		int count = 0;
 		getUsers();
-		if(users != null) {
+		if (users != null) {
 			for (User user : users) {
-				if(count > 0){
+				if (count > 0) {
 					userStr += ",";
 				}
 				/* Get the profile image from twitter.com. 
@@ -225,11 +211,9 @@ public class Cookies {
 				user.refreshProfileImage();
 				userStr += "{\"id\":" + user.getId() + ",\"name\":\""+ user.getUserName() + "\",\"img\":\""+ user.getImageUrl() + "\"}";
 				count++;
-				System.out.println("prepareUserJSON: id: "+ user.getId() + ", name: " + user.getUserName());
 			}
 		}
 		userStr += "]";  
-		System.out.println("prepareUserJSON: exit(true): " + userStr);
 		return userStr;
 	}
 	

@@ -15,13 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.scribe.oauth.Scribe;
 import org.scribe.oauth.Token;
 
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-import twitter4j.http.RequestToken;
-
-
-
 public class OAuthLogin extends HttpServlet {
 
 

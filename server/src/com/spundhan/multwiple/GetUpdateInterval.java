@@ -25,7 +25,6 @@ public class GetUpdateInterval extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
 
-
 		DB db = new DB();
 
 		if(!db.isGroupValid(groupId, session)) {

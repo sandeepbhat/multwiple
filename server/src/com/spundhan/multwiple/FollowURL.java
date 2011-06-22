@@ -16,7 +16,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
-import twitter4j.http.AccessToken;
+import twitter4j.auth.AccessToken;
 
 public class FollowURL extends HttpServlet {
 
@@ -77,15 +77,18 @@ public class FollowURL extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		AccessToken accessToken = db.isSessionValid(userId, groupId, session);
-		if(userId == 0 || groupId == 0 || session.equals("") || accessToken == null){
+		if (userId == 0 || groupId == 0 || session.equals("") || accessToken == null) {
 			out.print("<h1>Show proper Error msg here</h1>{ \"success\": false, \"msg\": \"Authentication failed.\"}");
 			out.close();
 			System.out.println("FollowURL: exit(false)");
 			return;
 		}
 		
+		Twitter twitter = new TwitterFactory().getInstance();
 		Properties prop = TwitterProperties.getProperties();
-		Twitter twitter = new TwitterFactory().getOAuthAuthorizedInstance(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"), accessToken);
+		twitter.setOAuthConsumer(prop.getProperty("consumer.key"), prop.getProperty("consumer.secret"));
+		twitter.setOAuthAccessToken(accessToken);
+
 		String code = "";
 		try {
 			Status status = twitter.showStatus(tweetId);
