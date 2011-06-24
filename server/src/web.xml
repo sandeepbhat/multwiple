@@ -186,6 +186,33 @@ http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
   <url-pattern>DEBUG/advertise</url-pattern>
 </servlet-mapping>
 
+<servlet>
+  <servlet-name>GetFeedURL</servlet-name>
+  <servlet-class>com.spundhan.multwiple.GetFeedURL</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>GetFeedURL</servlet-name>
+  <url-pattern>DEBUG/getFeedURL</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>AddNewFeed</servlet-name>
+  <servlet-class>com.spundhan.multwiple.AddNewFeed</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>AddNewFeed</servlet-name>
+  <url-pattern>DEBUG/addNewFeed</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>GetFeeds</servlet-name>
+  <servlet-class>com.spundhan.multwiple.GetFeeds</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>GetFeeds</servlet-name>
+  <url-pattern>DEBUG/getFeeds</url-pattern>
+</servlet-mapping>
+
 <welcome-file-list>
 	<welcome-file>/index.html</welcome-file>
 </welcome-file-list>

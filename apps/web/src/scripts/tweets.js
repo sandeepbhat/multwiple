@@ -940,9 +940,9 @@ function hideTweetBox(type, userId) {
 }
 
 function showTweetBox(type, userId) {
-	if($("#"+ type + "_list_" +userId).is(':hidden')) {
+	if ($("#" + type + "_list_" + userId).is(':hidden')) {
 		var i = 0;
-		$("#sortable_boxes_"+userId+" li").each (
+		$("#sortable_boxes_" + userId + " li").each (
 			function() {
 				if(!$(this).is(':hidden')) {
 					i++;
@@ -952,9 +952,9 @@ function showTweetBox(type, userId) {
 				}
 			}
 		);
-		$("#new_"+type+"_count"+userId).parent().removeClass('bold-text');
-		$("#new_"+type+"_count"+userId).text('');
-		$("#"+ type + "_list_" +userId).fadeIn('slow');
+		$("#new_" + type + "_count" + userId).parent().removeClass('bold-text');
+		$("#new_" + type + "_count" + userId).text('');
+		$("#"+ type + "_list_" + userId).fadeIn('slow');
 	}
 }
 
@@ -2548,7 +2548,7 @@ function getTrends(userId) {
 					for(var i in response.trends) {
 						var trend = response.trends[i];
 						code += '<li>'+
-								'	<a onmouseover="return (window.status=\'\');" href="#" onclick="javascript:searchTweets('+userId+', 1, \''+trend.name+'\', \'trends\');">'+trend.name+'</a>' +
+								'	<a href="#" onclick="javascript:searchTweets('+userId+', 1, \''+trend.name+'\', \'trends\');">'+trend.name+'</a>' +
 								'</li>';
 					}
 					
@@ -2576,4 +2576,126 @@ function pluginCallback(url) {
     $("#tweet" + userId).focus();
     var tweet = $("#tweet"+userId).val() +' '+ url;
     $("#tweet"+userId).val(tweet);
+}
+
+function tweetFeed (user_id, feed_id) {
+	$("#tweet" + user_id).focus();
+	var link = $("#mt_feeds_" + user_id + "_" + feed_id + "_link").attr('href');
+	var msg = $("#mt_feeds_" + user_id + "_" + feed_id + "_text").text();
+	$("#tweet" + user_id).val(link + ' ' + msg);
+	updateChars(msg, user_id);
+}
+
+function buildFeeds (user_id, feed) {
+	var class_str = 'tweetbox_1';
+	feed.guid = feed.guid.replace(/[^a-zA-Z0-9\s]/g,'');
+	var code =  '<div class="' + class_str + '" id="mt_feeds_' + user_id  + '_' + feed.guid +'"  onmouseover="showReplyMenu(\'mt_feeds_reply_' + user_id + '_' + feed.guid + '\');" onmouseout="hideReplyMenu(\'mt_feeds_reply_' + user_id + '_' + feed.guid + '\');">' +
+				'	<table class="tweet-table">'+
+				'		<tr>'+
+				'			<td style="padding: 0px 5px; text-align: justify;">'+
+				'				<span class="tweetuser">'+
+				'					<a id="mt_feeds_' + user_id  + '_' + feed.guid +'_link" target="_blank" href="' + feed.link + '">' + feed.title + '</a>'+
+				'				</span>' +
+				'				: <span id="mt_feeds_' + user_id  + '_' + feed.guid +'_text" class="tweetmsg">' + feed.text + '</span><br/>' +
+				'			</td>'+
+				'			<td style="width:20px; height:55px; padding:2px; vertical-align: middle;">'+
+				'				<span class="action-icons" id="mt_feeds_reply_' + user_id + '_' + feed.guid + '">' + 
+				'					<ul>'+
+				'						<li class="reply"><span onclick="javascript:tweetFeed('+ user_id +', \'' + feed.guid +'\');" class="ui-icon ui-icon-lightbulb" title="Tweet Feed"></span></li><br/>'+ 
+				'					</ul>' +
+				'				</span>' +
+				'			</td>' +
+				'		</tr>'+
+				'		<tr>'+
+				'			<td colspan="2">'+
+				'				<span class="tweettime">' + feed.date + '</span>'+
+				'			</td>'+
+				'		</tr>'+
+				'	</table>'+
+				'</div>';
+	return code;
+}
+
+function getFeeds (user_id, url) {
+	$("#feeds_img_" + user_id).fadeIn('slow');
+	$.post ("/s/getFeeds", 
+			{
+				"user_id" 	: user_id,
+				"multUser"	: g_selected_user_name,
+				"gid"  		: login_state.gid,
+				"session" 	: login_state.session,
+				"url"		: url
+			},
+			function (response) {
+				if (response.success) {
+					$("#mt_feeds_container_" + user_id).html('');
+					var code = '';
+					for (i in response.feeds) {
+						code += buildFeeds(user_id, response.feeds[i]);
+					}
+					$("#mt_feeds_container_" + user_id).html(code);
+
+					if ($("#mt_feeds_container_" + user_id).is(':hidden')) {
+						showTweetBox('mt_feeds', user_id);
+					}
+				}
+				$("#feeds_img_" + user_id).fadeOut('slow');
+			},
+		"json"
+	);
+}
+
+function getFeedURL (user_id) {
+	$("#feeds_img_" + user_id).fadeIn('slow');
+	$.post ("/s/getFeedURL", 
+			{
+				"user_id" 	: user_id,
+				"multUser"	: g_selected_user_name,
+				"gid"  		: login_state.gid,
+				"session" 	: login_state.session
+			}, 
+			function(response) {
+				if (response.success) {
+					$("#feeds_list_" + user_id).html('');
+					var code = '<ul class="trend-list">';
+					for (i in response.feeds) {
+						var feed = response.feeds [i];
+						code += '<li><a href="#" onclick="javascript:getFeeds(' + user_id + ', \'' + feed.url + '\');">' + feed.title + '</a></li>';
+					}
+					code += '</ul>';
+					$("#feeds_list_" + user_id).html(code);
+					$("#feeds_" + user_id).slideDown('slow');
+				}
+				$("#feeds_img_" + user_id).fadeOut('slow');
+			}, 
+		"json"
+	);
+}
+
+function showToggleFeeds (user_id) {
+	if (!$("#feeds_" + user_id).is(':hidden')) {
+		$("#feeds_" + user_id).slideUp('slow');
+	}
+	else {
+		getFeedURL (user_id);
+	}
+}
+
+function addNewFeed (user_id) {
+	var feed_url = $("#feed_new_url").val();
+	$.post ("/s/addNewFeed", 
+			{
+				"user_id" 	: user_id,
+				"gid"  		: login_state.gid,
+				"session" 	: login_state.session,
+				"multUser"	: g_selected_user_name,
+				"url"		: feed_url
+			}, 
+			function(response) {
+				if (response.success) {
+					getFeedURL (user_id);
+				}
+			}, 
+		"json"
+	);
 }

@@ -62,4 +62,11 @@ public class Constants {
 		long days = hours / 24;
 		return days + " days ago.";
 	}
+
+	public static boolean isNull (String string) {
+		if (string == null || string.trim().length() == 0) {
+			return true;
+		}
+		return false;
+	}
 }

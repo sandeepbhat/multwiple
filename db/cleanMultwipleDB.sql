@@ -12,3 +12,6 @@ ALTER SEQUENCE main.login_tokens_id_seq RESTART WITH 1;
 
 DELETE FROM main.actions;
 ALTER SEQUENCE main.actions_id_seq RESTART WITH 1;
+
+DELETE FROM main.feeds;
+ALTER SEQUENCE main.feeds_id_seq RESTART WITH 1;

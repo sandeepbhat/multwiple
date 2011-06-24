@@ -3,7 +3,7 @@ DROP DATABASE "multwipleDB";
 -- PostgreSQL database dump
 --
 
--- Started on 2011-06-22 17:06:05 IST
+-- Started on 2011-06-24 22:49:04 IST
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -13,7 +13,7 @@ SET client_min_messages = warning;
 SET escape_string_warning = off;
 
 --
--- TOC entry 1834 (class 1262 OID 24182)
+-- TOC entry 1844 (class 1262 OID 24182)
 -- Name: multwipleDB; Type: DATABASE; Schema: -; Owner: postgres
 --
 
@@ -48,7 +48,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 1516 (class 1259 OID 24184)
+-- TOC entry 1520 (class 1259 OID 24184)
 -- Dependencies: 6
 -- Name: actions; Type: TABLE; Schema: main; Owner: mtwiple_user; Tablespace: 
 --
@@ -62,8 +62,8 @@ CREATE TABLE actions (
 ALTER TABLE main.actions OWNER TO mtwiple_user;
 
 --
--- TOC entry 1517 (class 1259 OID 24190)
--- Dependencies: 1516 6
+-- TOC entry 1521 (class 1259 OID 24190)
+-- Dependencies: 1520 6
 -- Name: actions_id_seq; Type: SEQUENCE; Schema: main; Owner: mtwiple_user
 --
 
@@ -78,8 +78,8 @@ CREATE SEQUENCE actions_id_seq
 ALTER TABLE main.actions_id_seq OWNER TO mtwiple_user;
 
 --
--- TOC entry 1838 (class 0 OID 0)
--- Dependencies: 1517
+-- TOC entry 1848 (class 0 OID 0)
+-- Dependencies: 1521
 -- Name: actions_id_seq; Type: SEQUENCE OWNED BY; Schema: main; Owner: mtwiple_user
 --
 
@@ -87,8 +87,8 @@ ALTER SEQUENCE actions_id_seq OWNED BY actions.id;
 
 
 --
--- TOC entry 1839 (class 0 OID 0)
--- Dependencies: 1517
+-- TOC entry 1849 (class 0 OID 0)
+-- Dependencies: 1521
 -- Name: actions_id_seq; Type: SEQUENCE SET; Schema: main; Owner: mtwiple_user
 --
 
@@ -96,7 +96,58 @@ SELECT pg_catalog.setval('actions_id_seq', 1, false);
 
 
 --
--- TOC entry 1518 (class 1259 OID 24192)
+-- TOC entry 1534 (class 1259 OID 24264)
+-- Dependencies: 6
+-- Name: feeds; Type: TABLE; Schema: main; Owner: mtwiple_user; Tablespace: 
+--
+
+CREATE TABLE feeds (
+    id integer NOT NULL,
+    feed_url text,
+    user_id integer,
+    group_id integer,
+    feed_title text
+);
+
+
+ALTER TABLE main.feeds OWNER TO mtwiple_user;
+
+--
+-- TOC entry 1533 (class 1259 OID 24262)
+-- Dependencies: 1534 6
+-- Name: feeds_id_seq; Type: SEQUENCE; Schema: main; Owner: mtwiple_user
+--
+
+CREATE SEQUENCE feeds_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE main.feeds_id_seq OWNER TO mtwiple_user;
+
+--
+-- TOC entry 1850 (class 0 OID 0)
+-- Dependencies: 1533
+-- Name: feeds_id_seq; Type: SEQUENCE OWNED BY; Schema: main; Owner: mtwiple_user
+--
+
+ALTER SEQUENCE feeds_id_seq OWNED BY feeds.id;
+
+
+--
+-- TOC entry 1851 (class 0 OID 0)
+-- Dependencies: 1533
+-- Name: feeds_id_seq; Type: SEQUENCE SET; Schema: main; Owner: mtwiple_user
+--
+
+SELECT pg_catalog.setval('feeds_id_seq', 1, false);
+
+
+--
+-- TOC entry 1522 (class 1259 OID 24192)
 -- Dependencies: 6
 -- Name: login_tokens; Type: TABLE; Schema: main; Owner: mtwiple_user; Tablespace: 
 --
@@ -115,8 +166,8 @@ CREATE TABLE login_tokens (
 ALTER TABLE main.login_tokens OWNER TO mtwiple_user;
 
 --
--- TOC entry 1519 (class 1259 OID 24198)
--- Dependencies: 6 1518
+-- TOC entry 1523 (class 1259 OID 24198)
+-- Dependencies: 1522 6
 -- Name: login_tokens_id_seq; Type: SEQUENCE; Schema: main; Owner: mtwiple_user
 --
 
@@ -131,8 +182,8 @@ CREATE SEQUENCE login_tokens_id_seq
 ALTER TABLE main.login_tokens_id_seq OWNER TO mtwiple_user;
 
 --
--- TOC entry 1840 (class 0 OID 0)
--- Dependencies: 1519
+-- TOC entry 1852 (class 0 OID 0)
+-- Dependencies: 1523
 -- Name: login_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: main; Owner: mtwiple_user
 --
 
@@ -140,8 +191,8 @@ ALTER SEQUENCE login_tokens_id_seq OWNED BY login_tokens.id;
 
 
 --
--- TOC entry 1841 (class 0 OID 0)
--- Dependencies: 1519
+-- TOC entry 1853 (class 0 OID 0)
+-- Dependencies: 1523
 -- Name: login_tokens_id_seq; Type: SEQUENCE SET; Schema: main; Owner: mtwiple_user
 --
 
@@ -149,7 +200,7 @@ SELECT pg_catalog.setval('login_tokens_id_seq', 1, false);
 
 
 --
--- TOC entry 1520 (class 1259 OID 24200)
+-- TOC entry 1524 (class 1259 OID 24200)
 -- Dependencies: 6
 -- Name: logs; Type: TABLE; Schema: main; Owner: mtwiple_user; Tablespace: 
 --
@@ -167,8 +218,8 @@ CREATE TABLE logs (
 ALTER TABLE main.logs OWNER TO mtwiple_user;
 
 --
--- TOC entry 1521 (class 1259 OID 24206)
--- Dependencies: 1520 6
+-- TOC entry 1525 (class 1259 OID 24206)
+-- Dependencies: 6 1524
 -- Name: logs_id_seq; Type: SEQUENCE; Schema: main; Owner: mtwiple_user
 --
 
@@ -183,8 +234,8 @@ CREATE SEQUENCE logs_id_seq
 ALTER TABLE main.logs_id_seq OWNER TO mtwiple_user;
 
 --
--- TOC entry 1842 (class 0 OID 0)
--- Dependencies: 1521
+-- TOC entry 1854 (class 0 OID 0)
+-- Dependencies: 1525
 -- Name: logs_id_seq; Type: SEQUENCE OWNED BY; Schema: main; Owner: mtwiple_user
 --
 
@@ -192,8 +243,8 @@ ALTER SEQUENCE logs_id_seq OWNED BY logs.id;
 
 
 --
--- TOC entry 1843 (class 0 OID 0)
--- Dependencies: 1521
+-- TOC entry 1855 (class 0 OID 0)
+-- Dependencies: 1525
 -- Name: logs_id_seq; Type: SEQUENCE SET; Schema: main; Owner: mtwiple_user
 --
 
@@ -201,7 +252,7 @@ SELECT pg_catalog.setval('logs_id_seq', 1, false);
 
 
 --
--- TOC entry 1522 (class 1259 OID 24208)
+-- TOC entry 1526 (class 1259 OID 24208)
 -- Dependencies: 6
 -- Name: user_group; Type: TABLE; Schema: main; Owner: mtwiple_user; Tablespace: 
 --
@@ -216,8 +267,8 @@ CREATE TABLE user_group (
 ALTER TABLE main.user_group OWNER TO mtwiple_user;
 
 --
--- TOC entry 1523 (class 1259 OID 24214)
--- Dependencies: 6 1522
+-- TOC entry 1527 (class 1259 OID 24214)
+-- Dependencies: 6 1526
 -- Name: user_group_id_seq; Type: SEQUENCE; Schema: main; Owner: mtwiple_user
 --
 
@@ -232,8 +283,8 @@ CREATE SEQUENCE user_group_id_seq
 ALTER TABLE main.user_group_id_seq OWNER TO mtwiple_user;
 
 --
--- TOC entry 1844 (class 0 OID 0)
--- Dependencies: 1523
+-- TOC entry 1856 (class 0 OID 0)
+-- Dependencies: 1527
 -- Name: user_group_id_seq; Type: SEQUENCE OWNED BY; Schema: main; Owner: mtwiple_user
 --
 
@@ -241,8 +292,8 @@ ALTER SEQUENCE user_group_id_seq OWNED BY user_group.id;
 
 
 --
--- TOC entry 1845 (class 0 OID 0)
--- Dependencies: 1523
+-- TOC entry 1857 (class 0 OID 0)
+-- Dependencies: 1527
 -- Name: user_group_id_seq; Type: SEQUENCE SET; Schema: main; Owner: mtwiple_user
 --
 
@@ -250,7 +301,7 @@ SELECT pg_catalog.setval('user_group_id_seq', 1, false);
 
 
 --
--- TOC entry 1524 (class 1259 OID 24216)
+-- TOC entry 1528 (class 1259 OID 24216)
 -- Dependencies: 6
 -- Name: user_tokens; Type: TABLE; Schema: main; Owner: mtwiple_user; Tablespace: 
 --
@@ -275,8 +326,8 @@ CREATE TABLE user_tokens (
 ALTER TABLE main.user_tokens OWNER TO mtwiple_user;
 
 --
--- TOC entry 1525 (class 1259 OID 24222)
--- Dependencies: 6 1524
+-- TOC entry 1529 (class 1259 OID 24222)
+-- Dependencies: 6 1528
 -- Name: user_tokens_id_seq; Type: SEQUENCE; Schema: main; Owner: mtwiple_user
 --
 
@@ -291,8 +342,8 @@ CREATE SEQUENCE user_tokens_id_seq
 ALTER TABLE main.user_tokens_id_seq OWNER TO mtwiple_user;
 
 --
--- TOC entry 1846 (class 0 OID 0)
--- Dependencies: 1525
+-- TOC entry 1858 (class 0 OID 0)
+-- Dependencies: 1529
 -- Name: user_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: main; Owner: mtwiple_user
 --
 
@@ -300,8 +351,8 @@ ALTER SEQUENCE user_tokens_id_seq OWNED BY user_tokens.id;
 
 
 --
--- TOC entry 1847 (class 0 OID 0)
--- Dependencies: 1525
+-- TOC entry 1859 (class 0 OID 0)
+-- Dependencies: 1529
 -- Name: user_tokens_id_seq; Type: SEQUENCE SET; Schema: main; Owner: mtwiple_user
 --
 
@@ -311,7 +362,7 @@ SELECT pg_catalog.setval('user_tokens_id_seq', 1, false);
 SET search_path = public, pg_catalog;
 
 --
--- TOC entry 1526 (class 1259 OID 24224)
+-- TOC entry 1530 (class 1259 OID 24224)
 -- Dependencies: 7
 -- Name: actions; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -325,7 +376,7 @@ CREATE TABLE actions (
 ALTER TABLE public.actions OWNER TO postgres;
 
 --
--- TOC entry 1527 (class 1259 OID 24230)
+-- TOC entry 1531 (class 1259 OID 24230)
 -- Dependencies: 7
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -340,8 +391,8 @@ CREATE TABLE users (
 ALTER TABLE public.users OWNER TO postgres;
 
 --
--- TOC entry 1528 (class 1259 OID 24236)
--- Dependencies: 1527 7
+-- TOC entry 1532 (class 1259 OID 24236)
+-- Dependencies: 7 1531
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -356,8 +407,8 @@ CREATE SEQUENCE users_id_seq
 ALTER TABLE public.users_id_seq OWNER TO postgres;
 
 --
--- TOC entry 1848 (class 0 OID 0)
--- Dependencies: 1528
+-- TOC entry 1860 (class 0 OID 0)
+-- Dependencies: 1532
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -365,8 +416,8 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- TOC entry 1849 (class 0 OID 0)
--- Dependencies: 1528
+-- TOC entry 1861 (class 0 OID 0)
+-- Dependencies: 1532
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -376,8 +427,8 @@ SELECT pg_catalog.setval('users_id_seq', 1, false);
 SET search_path = main, pg_catalog;
 
 --
--- TOC entry 1806 (class 2604 OID 24238)
--- Dependencies: 1517 1516
+-- TOC entry 1812 (class 2604 OID 24238)
+-- Dependencies: 1521 1520
 -- Name: id; Type: DEFAULT; Schema: main; Owner: mtwiple_user
 --
 
@@ -385,8 +436,17 @@ ALTER TABLE actions ALTER COLUMN id SET DEFAULT nextval('actions_id_seq'::regcla
 
 
 --
--- TOC entry 1807 (class 2604 OID 24239)
--- Dependencies: 1519 1518
+-- TOC entry 1818 (class 2604 OID 24267)
+-- Dependencies: 1534 1533 1534
+-- Name: id; Type: DEFAULT; Schema: main; Owner: mtwiple_user
+--
+
+ALTER TABLE feeds ALTER COLUMN id SET DEFAULT nextval('feeds_id_seq'::regclass);
+
+
+--
+-- TOC entry 1813 (class 2604 OID 24239)
+-- Dependencies: 1523 1522
 -- Name: id; Type: DEFAULT; Schema: main; Owner: mtwiple_user
 --
 
@@ -394,8 +454,8 @@ ALTER TABLE login_tokens ALTER COLUMN id SET DEFAULT nextval('login_tokens_id_se
 
 
 --
--- TOC entry 1808 (class 2604 OID 24240)
--- Dependencies: 1521 1520
+-- TOC entry 1814 (class 2604 OID 24240)
+-- Dependencies: 1525 1524
 -- Name: id; Type: DEFAULT; Schema: main; Owner: mtwiple_user
 --
 
@@ -403,8 +463,8 @@ ALTER TABLE logs ALTER COLUMN id SET DEFAULT nextval('logs_id_seq'::regclass);
 
 
 --
--- TOC entry 1809 (class 2604 OID 24241)
--- Dependencies: 1523 1522
+-- TOC entry 1815 (class 2604 OID 24241)
+-- Dependencies: 1527 1526
 -- Name: id; Type: DEFAULT; Schema: main; Owner: mtwiple_user
 --
 
@@ -412,8 +472,8 @@ ALTER TABLE user_group ALTER COLUMN id SET DEFAULT nextval('user_group_id_seq'::
 
 
 --
--- TOC entry 1810 (class 2604 OID 24242)
--- Dependencies: 1525 1524
+-- TOC entry 1816 (class 2604 OID 24242)
+-- Dependencies: 1529 1528
 -- Name: id; Type: DEFAULT; Schema: main; Owner: mtwiple_user
 --
 
@@ -423,8 +483,8 @@ ALTER TABLE user_tokens ALTER COLUMN id SET DEFAULT nextval('user_tokens_id_seq'
 SET search_path = public, pg_catalog;
 
 --
--- TOC entry 1811 (class 2604 OID 24243)
--- Dependencies: 1528 1527
+-- TOC entry 1817 (class 2604 OID 24243)
+-- Dependencies: 1532 1531
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -434,8 +494,8 @@ ALTER TABLE users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 SET search_path = main, pg_catalog;
 
 --
--- TOC entry 1825 (class 0 OID 24184)
--- Dependencies: 1516
+-- TOC entry 1834 (class 0 OID 24184)
+-- Dependencies: 1520
 -- Data for Name: actions; Type: TABLE DATA; Schema: main; Owner: mtwiple_user
 --
 
@@ -444,8 +504,18 @@ COPY actions (id, action) FROM stdin;
 
 
 --
--- TOC entry 1826 (class 0 OID 24192)
--- Dependencies: 1518
+-- TOC entry 1841 (class 0 OID 24264)
+-- Dependencies: 1534
+-- Data for Name: feeds; Type: TABLE DATA; Schema: main; Owner: mtwiple_user
+--
+
+COPY feeds (id, feed_url, user_id, group_id, feed_title) FROM stdin;
+\.
+
+
+--
+-- TOC entry 1835 (class 0 OID 24192)
+-- Dependencies: 1522
 -- Data for Name: login_tokens; Type: TABLE DATA; Schema: main; Owner: mtwiple_user
 --
 
@@ -454,8 +524,8 @@ COPY login_tokens (id, token, secret, rawstring, creation_date, group_id, sessio
 
 
 --
--- TOC entry 1827 (class 0 OID 24200)
--- Dependencies: 1520
+-- TOC entry 1836 (class 0 OID 24200)
+-- Dependencies: 1524
 -- Data for Name: logs; Type: TABLE DATA; Schema: main; Owner: mtwiple_user
 --
 
@@ -464,8 +534,8 @@ COPY logs (id, log_user_id, log_screen_name, action_id, log_date, log_data) FROM
 
 
 --
--- TOC entry 1828 (class 0 OID 24208)
--- Dependencies: 1522
+-- TOC entry 1837 (class 0 OID 24208)
+-- Dependencies: 1526
 -- Data for Name: user_group; Type: TABLE DATA; Schema: main; Owner: mtwiple_user
 --
 
@@ -474,8 +544,8 @@ COPY user_group (id, group_salt, update_interval) FROM stdin;
 
 
 --
--- TOC entry 1829 (class 0 OID 24216)
--- Dependencies: 1524
+-- TOC entry 1838 (class 0 OID 24216)
+-- Dependencies: 1528
 -- Data for Name: user_tokens; Type: TABLE DATA; Schema: main; Owner: mtwiple_user
 --
 
@@ -486,8 +556,8 @@ COPY user_tokens (id, user_id, screen_name, token, secret, rawstring, creation_d
 SET search_path = public, pg_catalog;
 
 --
--- TOC entry 1830 (class 0 OID 24224)
--- Dependencies: 1526
+-- TOC entry 1839 (class 0 OID 24224)
+-- Dependencies: 1530
 -- Data for Name: actions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -496,8 +566,8 @@ COPY actions (id, action) FROM stdin;
 
 
 --
--- TOC entry 1831 (class 0 OID 24230)
--- Dependencies: 1527
+-- TOC entry 1840 (class 0 OID 24230)
+-- Dependencies: 1531
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -508,8 +578,8 @@ COPY users (id, login, passwd_salt) FROM stdin;
 SET search_path = main, pg_catalog;
 
 --
--- TOC entry 1813 (class 2606 OID 24245)
--- Dependencies: 1516 1516
+-- TOC entry 1820 (class 2606 OID 24245)
+-- Dependencies: 1520 1520
 -- Name: actions_key; Type: CONSTRAINT; Schema: main; Owner: mtwiple_user; Tablespace: 
 --
 
@@ -518,8 +588,18 @@ ALTER TABLE ONLY actions
 
 
 --
--- TOC entry 1819 (class 2606 OID 24247)
--- Dependencies: 1522 1522
+-- TOC entry 1832 (class 2606 OID 24272)
+-- Dependencies: 1534 1534
+-- Name: feeds_id_pk; Type: CONSTRAINT; Schema: main; Owner: mtwiple_user; Tablespace: 
+--
+
+ALTER TABLE ONLY feeds
+    ADD CONSTRAINT feeds_id_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1826 (class 2606 OID 24247)
+-- Dependencies: 1526 1526
 -- Name: grp_pky; Type: CONSTRAINT; Schema: main; Owner: mtwiple_user; Tablespace: 
 --
 
@@ -528,8 +608,8 @@ ALTER TABLE ONLY user_group
 
 
 --
--- TOC entry 1817 (class 2606 OID 24249)
--- Dependencies: 1520 1520
+-- TOC entry 1824 (class 2606 OID 24249)
+-- Dependencies: 1524 1524
 -- Name: logs_key; Type: CONSTRAINT; Schema: main; Owner: mtwiple_user; Tablespace: 
 --
 
@@ -538,8 +618,8 @@ ALTER TABLE ONLY logs
 
 
 --
--- TOC entry 1815 (class 2606 OID 24251)
--- Dependencies: 1518 1518
+-- TOC entry 1822 (class 2606 OID 24251)
+-- Dependencies: 1522 1522
 -- Name: ltok_pky; Type: CONSTRAINT; Schema: main; Owner: mtwiple_user; Tablespace: 
 --
 
@@ -548,8 +628,8 @@ ALTER TABLE ONLY login_tokens
 
 
 --
--- TOC entry 1821 (class 2606 OID 24253)
--- Dependencies: 1524 1524
+-- TOC entry 1828 (class 2606 OID 24253)
+-- Dependencies: 1528 1528
 -- Name: ustok_pky; Type: CONSTRAINT; Schema: main; Owner: mtwiple_user; Tablespace: 
 --
 
@@ -560,8 +640,8 @@ ALTER TABLE ONLY user_tokens
 SET search_path = public, pg_catalog;
 
 --
--- TOC entry 1823 (class 2606 OID 24255)
--- Dependencies: 1527 1527
+-- TOC entry 1830 (class 2606 OID 24255)
+-- Dependencies: 1531 1531
 -- Name: usr_id_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -572,8 +652,8 @@ ALTER TABLE ONLY users
 SET search_path = main, pg_catalog;
 
 --
--- TOC entry 1824 (class 2606 OID 24256)
--- Dependencies: 1524 1522 1818
+-- TOC entry 1833 (class 2606 OID 24256)
+-- Dependencies: 1528 1825 1526
 -- Name: usr_grp_fky; Type: FK CONSTRAINT; Schema: main; Owner: mtwiple_user
 --
 
@@ -582,7 +662,7 @@ ALTER TABLE ONLY user_tokens
 
 
 --
--- TOC entry 1835 (class 0 OID 0)
+-- TOC entry 1845 (class 0 OID 0)
 -- Dependencies: 6
 -- Name: main; Type: ACL; Schema: -; Owner: postgres
 --
@@ -594,7 +674,7 @@ GRANT ALL ON SCHEMA main TO PUBLIC;
 
 
 --
--- TOC entry 1837 (class 0 OID 0)
+-- TOC entry 1847 (class 0 OID 0)
 -- Dependencies: 7
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -605,7 +685,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2011-06-22 17:06:06 IST
+-- Completed on 2011-06-24 22:49:05 IST
 
 --
 -- PostgreSQL database dump complete

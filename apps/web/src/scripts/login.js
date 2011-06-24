@@ -7,7 +7,8 @@ var icons = {
 				"favorite"	: "ui-icon-star", 
 				"following"	: "ui-icon-heart",
 				"followers"	: "ui-icon-gear",
-				"trends"	: "ui-icon-signal-diag"
+				"trends"	: "ui-icon-signal",
+				"mt_feeds"	: "ui-icon-signal-diag"
 			};
 
 var g_url = "http://multwiple.com";
@@ -81,9 +82,9 @@ function loginAddOnSuccess(user){
 			'			<span class="dashboard-item-name">Your Followers</span>'+
 			'			<img src="../images/indicator_arrows.gif" alt="Loading" style="display:none;" id="followers_img_'+user.id+'"/>'+
 			'		</div>'+
-			'		<div id="trends_'+user.id+'">'+
+			'		<div id="trends_' + user.id + '">'+
 			'			<div class="dashboard-item" onclick="javascript:showHideTrends('+ user.id +');">'+
-			'				<span class="ui-icon ui-icon-signal-diag"></span>'+
+			'				<span class="ui-icon ui-icon-signal"></span>'+
 			'				<span class="dashboard-item-name">Trends</span>'+
 			'				<img src="../images/indicator_arrows.gif" alt="Loading" style="display:none;" id="trends_img_'+user.id+'"/>'+
 		    '				<span id="trends_hide_icon_'+user.id+'" class="ui-icon ui-icon-circle-triangle-s" style="float:right;"></span>'+
@@ -91,6 +92,21 @@ function loginAddOnSuccess(user){
 			'			<div id="trend_list_'+user.id+'" style="display:none;">'+
 			'			</div>'+
 			'		</div>'+
+			'		<div>' +
+			'			<div class="dashboard-item" onclick="showToggleFeeds(' + user.id + ');">' +
+			'				<span class="ui-icon ui-icon-signal-diag"></span>' +
+			'				<span class="dashboard-item-name">Feeds</span>' +
+			'				<img src="../images/indicator_arrows.gif" alt="Loading" style="display:none;" id="feeds_img_' + user.id + '"/>'+
+			'			</div>' +
+			'			<div id="feeds_' + user.id + '" style="display:none;">' +
+			'				<div class="feeds-add">'+
+			'					<input type="text" id="feed_new_url"/>'+
+			'					<input type="button" value="Add" onclick="addNewFeed(' + user.id + ');"/>'+
+			'				</div>' +
+			'				<div id="feeds_list_' + user.id + '">' +
+			'				</div>' +
+			'			</div>' +
+			'		</div>' +
 			'		<div class="dashboard-item" onclick="javascript:tellFriends('+ user.id +');">'+
 			'			<span class="ui-icon ui-icon-comment"></span>'+
 			'			<span class="dashboard-item-name">Tell Your Friends</span>'+
@@ -222,7 +238,8 @@ function loginAddOnSuccess(user){
 							buildTweetBox(user, 'search', 'Results') +
 							buildTweetBox(user, 'following', 'People You Follow') +
 							buildTweetBox(user, 'followers', 'Your Followers') +
-							buildTweetBox(user, 'trends', 'Trends');
+							buildTweetBox(user, 'trends', 'Trends') +
+							buildTweetBox(user, 'mt_feeds', 'Feeds') +
 			'			</ul>'+
 			'		</div>' +
 			'	</td>'+
