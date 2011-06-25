@@ -18,25 +18,21 @@ public class User {
 	private String imageUrl;
 	private String session;
 	private int updateInterval;
-	private Logger log;
 	
 	public User(){
 		id = 0;
 		userName = "";
-		log = Logger.getRootLogger();
 	}
 	
 	public User(int id, String uname){
 		this.id = id;
 		userName = uname;
-		log = Logger.getRootLogger();
 	}
 
 	public User(int id, String uname, String imageUrl){
 		this.id = id;
 		this.userName = uname;
 		this.imageUrl = imageUrl;
-		log = Logger.getRootLogger();
 	}
 
 	public int getId() {

@@ -540,7 +540,7 @@ td.footer-column {
 div.settings-panel {
   float:right;
   vertical-align: middle;
-  margin-right: 35px;
+  margin: 35px 35px 0px 0px;
   font-weight: normal;
 }
 
@@ -978,10 +978,12 @@ input.url-text {
 	padding: 0px 0px 0px 35px;
 }
 
-.trend-list li {
-	cursor: pointer;	
+.feeds-list {
+	margin: 5px;
+	padding: 0px 0px 0px 15px;
+	font-size: smaller; 	
 }
 
 .feeds-add {
-	padding: 0px 5px;	
+	padding: 0px 5px;
 }

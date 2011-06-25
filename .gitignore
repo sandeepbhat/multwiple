@@ -1,0 +1,11 @@
+# Generic files to ignore
+multwiple-web.log*
+db/restore.log
+bin/
+build/
+tmp/
+logs/
+server/build/
+server/dist/
+dist/*.tar.gz
+dist/*.tgz

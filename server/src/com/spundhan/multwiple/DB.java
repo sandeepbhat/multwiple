@@ -44,8 +44,6 @@ public class DB {
 			return false;
 		}
 
-		log.debug("DB: connect: Registered the driver ok, so let's make a connection.");
-
 		connection = null;
 
 		try {
@@ -140,7 +138,6 @@ public class DB {
 			ResultSet rs = s.executeQuery("SELECT id FROM main.user_group " +
 					"WHERE id = '"+ groupId +"' AND group_salt = '"+ session +"';");
 			if (rs.next()) {
-				int id = rs.getInt(1);
 				return true;
 			}
 			s.close();

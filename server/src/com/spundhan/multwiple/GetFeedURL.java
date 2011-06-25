@@ -60,7 +60,10 @@ public class GetFeedURL extends HttpServlet {
 		int userId = Integer.parseInt(userIdStr);
 		int groupId = Integer.parseInt(gidStr);
 		
-		AccessToken accessToken = new DB().isSessionValid(userId, groupId, session);
+		DB db = new DB();
+		db.logs (userId, multUser, Constants.FEEDS, "Get Feed URL");
+		
+		AccessToken accessToken = db.isSessionValid(userId, groupId, session);
 		if (userId == 0 || groupId == 0 || accessToken == null) {
 			out.print("{ \"success\": false, \"msg\": \"Authentication failed.\"}");
 			out.close();

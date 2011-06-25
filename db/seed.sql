@@ -20,3 +20,5 @@ INSERT INTO main.actions ("action") VALUES ('Delete User');
 INSERT INTO main.actions ("action") VALUES ('Get Trends');
 INSERT INTO main.actions ("action") VALUES ('Search Tweets');
 INSERT INTO main.actions ("action") VALUES ('URL Shortener');
+INSERT INTO main.actions ("action") VALUES ('Advertisement');
+INSERT INTO main.actions ("action") VALUES ('Feeds');

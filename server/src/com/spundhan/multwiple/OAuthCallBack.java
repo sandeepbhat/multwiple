@@ -378,13 +378,11 @@ public class OAuthCallBack extends HttpServlet {
 		Statement s = null;
 		ResultSet rs = null;
 		System.out.println("getRequestTokenFromDB: enter");
-		int id = 0;
 		try {
 			s = connection.createStatement();
 			rs = s.executeQuery("SELECT id, secret, group_id, session FROM main.login_tokens " +
 					"WHERE token = '"+ token +"';");
 			if (rs.next()) {
-				id = rs.getInt(1);
 				tokenSecret = rs.getString(2);
 				groupId = rs.getInt(3);
 				session = rs.getString(4);

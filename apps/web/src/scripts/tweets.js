@@ -21,6 +21,36 @@ var RETWEETED = 1;
 var DIRECT_MSG = 2;
 var GENERAL_TWEET = 3;
 
+var ERROR	= 1;
+var SUCCESS	= 2;
+var NOTICE	= 3;
+
+function showNotification (title, text, type) {
+	switch (type) {
+		case ERROR:
+			ui_icon = 'ui-icon ui-icon-alert';
+			notice_type = 'error';
+			break;
+		case SUCCESS:
+			ui_icon = 'ui-icon ui-icon-circle-check';
+			notice_type = 'notice';
+			break;
+		case NOTICE: 
+			ui_icon = 'ui-icon ui-icon-info';
+			notice_type = 'notice';
+			break;
+	}
+	
+	$.pnotify (
+		{
+			pnotify_title		: title,
+			pnotify_text 		: text,
+			pnotify_type		: notice_type,
+			pnotify_notice_icon : ui_icon
+		}
+	 );
+}
+
 function getUserObj(currentUserId){
 	for (i in login_state.users) {
 		var userId = login_state.users[i].id;
@@ -131,6 +161,7 @@ function showUserInfo(tweetId, userId, type) {
 				else {
 					$("#"+type+"_error_"+ tweetId + userId).text(response.msg);
 					$("#"+type+"_error_"+ tweetId + userId).fadeIn('slow');
+					showNotification ('User Information', response.msg, ERROR);
 				}
 				$("#"+type+"_usr_load_img_"+ tweetId + userId).fadeOut('slow');
 			}, 
@@ -309,7 +340,7 @@ function buildUpdatePagination(userId, page) {
 			'	<td style="width:90px;">'+
 			'	<span style="float:left;"> '+
 			'		<a id="new_friend_link_'+userId+'" style="display:none;" href="">'+ 
-			'			<< newer'+
+			'			&laquo; newer'+
 			'		</a>'+
 			'		<img src="../images/indicator_arrows.gif" style="display:none;" id="new_friend_load_'+userId+'" alt=""/>'+
 			'	</span>'+
@@ -321,7 +352,7 @@ function buildUpdatePagination(userId, page) {
 			'	<span style="float:right;"> '+
 			'		<img src="../images/indicator_arrows.gif" style="display:none;" id="old_friend_load_'+userId+'" alt=""/>'+
 			'		<a id="old_friend_link_'+userId+'" href="javascript:getOlderFriendUpdates('+(page + 1)+', \'o\', '+userId+');">'+
-			'			older >>'+
+			'			older &raquo;'+
 			'		</a>'+
 			'	</span>'+
 			'	</td>'+
@@ -338,7 +369,7 @@ function buildDirectPagination(userId, page) {
 				'	<tr>'+
 				'	<td style="width:90px;">'+
 				'	<span style="float:left;"> '+
-				'		<a id="new_direct_link_'+userId+'" style="display:none;" href=""> << newer</a>'+
+				'		<a id="new_direct_link_'+userId+'" style="display:none;" href=""> &laquo; newer</a>'+
 				'		<img src="../images/indicator_arrows.gif" style="display:none;" id="new_direct_load_'+userId+'" alt=""/>'+
 				'	</span>'+
 				'	</td>'+
@@ -348,7 +379,7 @@ function buildDirectPagination(userId, page) {
 				'	<td style="width:90px;">'+
 				'	<span style="float:right;"> '+
 				'		<img src="../images/indicator_arrows.gif" style="display:none;" id="old_direct_load_'+userId+'" alt=""/>'+
-				'		<a id="old_direct_link_'+userId+'" href="javascript:getOlderDirectUpdates('+(page + 1)+', \'o\', '+userId+');">older >> </a>'+
+				'		<a id="old_direct_link_'+userId+'" href="javascript:getOlderDirectUpdates('+(page + 1)+', \'o\', '+userId+');">older &raquo;</a>'+
 				'	</span>'+
 				'	</td>'+
 				'	</tr>'+
@@ -363,7 +394,7 @@ function buildMentionPagination(userId, page) {
 				'	<tr>'+
 				'	<td style="width:90px;">'+
 				'	<span style="float:left;"> '+
-				'		<a id="new_mention_link_'+userId+'" style="display:none;" href=""> << newer</a>'+
+				'		<a id="new_mention_link_'+userId+'" style="display:none;" href=""> &laquo; newer</a>'+
 				'		<img src="../images/indicator_arrows.gif" style="display:none;" id="new_mention_load_'+userId+'" alt=""/>'+
 				'	</span>'+
 				'	</td>'+
@@ -373,7 +404,7 @@ function buildMentionPagination(userId, page) {
 				'	<td style="width:90px;">'+
 				'	<span style="float:right;"> '+
 				'		<img src="../images/indicator_arrows.gif" style="display:none;" id="old_mention_load_'+userId+'" alt=""/>'+
-				'		<a id="old_mention_link_'+userId+'" href="javascript:getOlderMentions('+(page + 1)+', \'o\', '+userId+');">older >> </a>'+
+				'		<a id="old_mention_link_'+userId+'" href="javascript:getOlderMentions('+(page + 1)+', \'o\', '+userId+');">older &raquo;</a>'+
 				'	</span>'+
 				'	</td>'+
 				'	</tr>'+
@@ -420,14 +451,11 @@ function buildTweets(tweets, type, userId) {
 		var tweet = tweets[tweet_index];
 		
 		var current_tweet_id = tweet.id;
-//		alert ('Comparing current tweet: ' + current_tweet_id + ', Latest: ' + latest_tweet_id);
 		if(current_tweet_id.length >= latest_tweet_id.length && current_tweet_id > latest_tweet_id) {
-//			alert ('Updating current tweet: ' + current_tweet_id + ', Latest: ' + latest_tweet_id);
 			$( "#" + type + userId + "_latest" ).val(current_tweet_id);
 			latest_tweet_id = current_tweet_id;
 		}
 		else if(latest_tweet_id.length == 1 && latest_tweet_id == "0") {
-//			alert ('First, current tweet: ' + current_tweet_id + ', Latest: ' + latest_tweet_id);
 			$( "#" + type + userId + "_latest" ).val(current_tweet_id);
 			latest_tweet_id = current_tweet_id;
 		}
@@ -510,10 +538,11 @@ function updateFriendTweets(user) {
 						updateNewTweetCount('friend', user.id, response.count);
 					}
 					else {
-						//Close the scrollable div
+						// Close the scrollable div
 						code += '</div>';
 						code += buildUpdatePagination(user.id, 1);
 						$("#friend" + user.id).html(code);
+						showNotification ('Updates', response.msg, ERROR);
 					}
 					
 //					$("#friend_container_"+user.id).scroll(
@@ -599,6 +628,7 @@ function updateDirects(user){
 						code += '</div>'; 
 						code += buildDirectPagination(user.id, 1);
 						$("#direct" + user.id).html(code);
+						showNotification ('Direct Messages', response.msg, ERROR);
 					}
 					
 					if(count < TWEETS_PER_PAGE) {
@@ -670,6 +700,7 @@ function updateMentions(user){
 						code += '</div>';
 						code += buildMentionPagination(user.id, 1);
 						$("#mention" + user.id).html(code);
+						showNotification ('Mentions', response.msg, ERROR);
 					}
 					
 					if(count < TWEETS_PER_PAGE) {
@@ -773,6 +804,7 @@ function reTweetWithoutComment(tweetId, type) {
 				else {
 					$("#retweeting_img" + tweetId).hide();
 					$("#RT_icon" + tweetId).fadeIn('slow');
+					showNotification ('Retweet', response.msg, ERROR);
 				}
 			},
 			"json"
@@ -821,8 +853,7 @@ function markFavorite(user, tweetId, mark) {
 					$("#fav_icon_"+ tweetId + user).attr('src', orig_image);
 					$("#fav_link_"+ tweetId + user).attr('href', orig_href);
 					
-					// show error
-					alert('Sorry !! Some error occurred. '+response.msg);
+					showNotification ('Mark Favorite', response.msg, ERROR);
 				}
 			},
 			"json"
@@ -906,7 +937,7 @@ function tweetUpdate(userId) {
 				}
 				else { 
 					// show error
-					alert('Sorry !! Some Error Occurred. '+response.msg);
+					showNotification ('Tweet', response.msg, ERROR);
 				}
 				$("#updateStatus" + userId).hide();
 				$("#updateButton" + userId).fadeIn('slow');
@@ -1047,6 +1078,9 @@ function getOlderFriendUpdates(page, old_new, userId) {
 //						
 						$('#friend_page_no_'+userId).text(response.page);
 					}
+					else {
+						showNotification ('Older Updates', response.msg, ERROR);
+					}
 					hideTweetLoadImage('friend', userId, old_new);
 			  },
 		"json"
@@ -1122,6 +1156,9 @@ function getOlderDirectUpdates(page, old_new, userId) {
 						$("#new_direct_link_"+userId).fadeIn('slow');
 					}
 					$('#direct_page_no_'+userId).text(response.page);
+				}
+				else {
+					showNotification ('Older Direct Messages', response.msg, ERROR);
 				}
 				hideTweetLoadImage('mention', userId, old_new);
 			},
@@ -1201,6 +1238,9 @@ function getOlderMentions(page, old_new, userId) {
 					}
 					$('#mention_page_no_'+userId).text(response.page);
 				}
+				else {
+					showNotification ('Older Mentions', response.msg, ERROR);
+				}
 				hideTweetLoadImage('mention', userId, old_new);
 			},
 			"json"
@@ -1279,8 +1319,11 @@ function getNewFriendUpdates(userId) {
 							$("#old_friend_link_"+userId).fadeIn('slow');
 						}
 					}
+					else {
+						showNotification ('New Updates', response.msg, ERROR);
+					}
 
-					//Call the Update
+					// Call the Update
 					g_friend_timer = setTimeout("getNewFriendUpdates("+userId+");", UPDATE_INTERVAL);
 			  },
 		"json"
@@ -1333,6 +1376,9 @@ function getNewDirects(userId) {
 					if(no_of_directs > TWEETS_PER_PAGE) {
 						$("#old_direct_link_"+userId).fadeIn('slow');
 					}
+				}
+				else {
+					showNotification ('New Direct Messages', response.msg, ERROR);
 				}
 
 				//Call the Update after the fixed interval
@@ -1387,6 +1433,9 @@ function getNewMentions(userId) {
 					if(no_of_mentions > TWEETS_PER_PAGE) {
 						$("#old_mention_link_"+userId).fadeIn('slow');
 					}
+				}
+				else {
+					showNotification ('New Mentions', response.msg, ERROR);
 				}
 				
 				//Call the Update after fixed interval
@@ -1547,7 +1596,7 @@ function setSettings() {
 						
 					}
 					else {
-						alert('Sorry !! Some error occurred. '+ response.msg);
+						showNotification ('Save Settings', response.msg, ERROR);
 					}
 				}, 
 		"json"
@@ -1622,19 +1671,16 @@ function gotoUrl(tweetId, url) {
 
 function decodeLinks(tweetMsg) {
 	var tweet = $(tweetMsg).html();
-//	alert(tweet);
 	$("#decoded_tweet_"+g_selected_user_id).html(tweet);
 	$("#decoded_tweet_"+g_selected_user_id+" a").each (
 		function() {
 			var url = $(this).attr('title');
 			if(url.length > 0) {
-//				alert('Replacing URL');
 				$(this).replaceWith(url);
 			}
 		}
 	);
 	var msg = $("#decoded_tweet_"+g_selected_user_id).text();
-//	alert(msg);
 	return (msg);
 //	return ($(tweetMsg).text());
 }
@@ -1645,7 +1691,6 @@ function isUrl(s) {
 }
 
 function encodeTweet(tweetMsg, id) {
-//	alert("Encoding Tweet Enter");
 
 	var gotoUrl = "";
 	var gotoUrlEnd = "";
@@ -1672,18 +1717,14 @@ function encodeTweet(tweetMsg, id) {
 			// If there was no URL
 			if(word.indexOf("#") == 0){
 				var hash_index = word.indexOf(".");
-//				alert("Word >> "+word+" Hash Index >> "+hash_index);
 				var splitStr = "";
 				if(hash_index > 0) {
 					splitStr = word.substring(hash_index);
 					word = word.substring(0, hash_index);
 				}
-//				alert("Replacing Symbols");
 				var key = word.substring(1, word.length);
 				
 //				var key = word.replaceAll("[^a-zA-Z0-9]", "");
-				
-//				alert("Key >> "+key);
 				
 				newTweet += '<a href="#" onclick="'+ gotoUrl + 'http://search.twitter.com/search?q='+ key + gotoUrlEnd + '">'+ word + '</a>' + splitStr + ' ';    
 			}
@@ -1697,7 +1738,6 @@ function encodeTweet(tweetMsg, id) {
 			}
 		}
 	}
-//	alert("Encoding Tweet Exit"+"\n"+newTweet);
 	return newTweet;
 }
 
@@ -1719,7 +1759,7 @@ function followUser(username, tweetId, type) {
 					$("#"+type+"_follow_user_"+ tweetId + g_selected_user_id).html(code);
 				}
 				else {
-					alert('Some problem occured. '+response.msg); 
+					showNotification ('Follow User', response.msg, ERROR); 
 				}
 				$("#"+type+"_usr_load_img_"+ tweetId + g_selected_user_id).fadeOut('slow');
 			}, 
@@ -1746,7 +1786,7 @@ function unfollowUser(username, tweetId, type) {
 					$("#"+type+"_follow_user_"+ tweetId + g_selected_user_id).html(code);
 				}
 				else {
-					alert('Some problem occured. '+response.msg); 
+					showNotification ('Unfollow User', response.msg, ERROR); 
 				}
 				$("#"+type+"_usr_load_img_"+ tweetId + g_selected_user_id).fadeOut('slow');
 			}, 
@@ -1770,6 +1810,9 @@ function getUserStat(user) {
 					$("#tweets_count_"+user.id).text(response.user.tweets);
 					$("#favorites_count_"+user.id).text(response.user.favorites);
 					$("#user_stat_div_"+user.id).fadeIn('slow');
+				}
+				else {
+					showNotification ('User Statistics', response.msg, ERROR);
 				}
 				g_stat_timer = setTimeout("getUserStat({\"name\":\""+user.name+"\", \"id\":"+user.id+"});", UPDATE_INTERVAL);
 			}, 
@@ -1991,8 +2034,6 @@ function getRetweets(userId, rt_code, page) {
 						$("#retweet_header_"+userId).text('Retweeted To Me');
 					}
 					
-//					alert(code);
-					
 					$("#retweet_container_"+userId).html(code);
 					
 					if($("#retweet"+userId).is(':hidden')) {
@@ -2021,7 +2062,7 @@ function getRetweets(userId, rt_code, page) {
 					$('#retweet_page_no_'+userId).text(response.page);
 				}
 				else {
-					alert('Sorry !! Some error occured. '+response.msg);
+					showNotification('Retweets', response.msg, ERROR);
 				}
 				
 				if(RT_by_me) {
@@ -2085,7 +2126,7 @@ function getFavorites(userId, page) {
 					$('#favorite_page_no_'+userId).text(response.page);
 				}
 				else {
-					alert('Sorry !! Some error occured. '+response.msg);
+					showNotification('Favorites', response.msg, ERROR);
 				}
 				$("#favorites_img_"+userId).fadeOut('slow');
 			},
@@ -2194,8 +2235,8 @@ function searchTweets(userId, page, key, type) {
 				function(response) {
 
 					if(response.results.length == 0) {
-						if(!refresh) {
-							alert('No Results found for "'+key+'"');
+						if (!refresh) {
+							showNotification('Search', 'No Results found for "' + key + '"', ERROR);
 						}
 						return;
 					}
@@ -2508,7 +2549,7 @@ function getFriends(userId, cursor, type) {
 					$("#"+type+"_page_no_"+userId).text(response.page);
 				}
 				else {
-					alert('Sorry !! Some error occured. '+response.msg);
+					showNotification('Friends', response.msg, ERROR);
 				}
 				$("#"+type+"_img_"+userId).fadeOut('slow');
 			}, 
@@ -2538,12 +2579,13 @@ function getTrends(userId) {
 	$.getJSON (
 				url, 
 				function(response) {
-					var code = '<ul class="trend-list">';
-					
-					if(response.trends.length == 0) {
-						alert("Sorry !! Some error occurred. Try again.");
+					if (response.trends.length == 0) {
+						$("#trends_img_" + userId).fadeOut('slow');
+						showNotification('Trends', 'Some error occurred. Please try again.', ERROR);
 						return;
 					}
+					
+					var code = '<ul class="trend-list">';
 					
 					for(var i in response.trends) {
 						var trend = response.trends[i];
@@ -2639,6 +2681,9 @@ function getFeeds (user_id, url) {
 						showTweetBox('mt_feeds', user_id);
 					}
 				}
+				else {
+					showNotification('Feeds', response.msg, ERROR);
+				}
 				$("#feeds_img_" + user_id).fadeOut('slow');
 			},
 		"json"
@@ -2657,14 +2702,17 @@ function getFeedURL (user_id) {
 			function(response) {
 				if (response.success) {
 					$("#feeds_list_" + user_id).html('');
-					var code = '<ul class="trend-list">';
+					var code = '<ul class="feeds-list">';
 					for (i in response.feeds) {
 						var feed = response.feeds [i];
-						code += '<li><a href="#" onclick="javascript:getFeeds(' + user_id + ', \'' + feed.url + '\');">' + feed.title + '</a></li>';
+						code += '<li><a title="View Feed" href="#" onclick="javascript:getFeeds(' + user_id + ', \'' + feed.url + '\');">' + feed.title + '</a></li>';
 					}
 					code += '</ul>';
 					$("#feeds_list_" + user_id).html(code);
 					$("#feeds_" + user_id).slideDown('slow');
+				}
+				else {
+					showNotification('Feed List', response.msg, ERROR);
 				}
 				$("#feeds_img_" + user_id).fadeOut('slow');
 			}, 
@@ -2673,16 +2721,28 @@ function getFeedURL (user_id) {
 }
 
 function showToggleFeeds (user_id) {
-	if (!$("#feeds_" + user_id).is(':hidden')) {
-		$("#feeds_" + user_id).slideUp('slow');
+	if ($("#feeds_" + user_id).is(':hidden')) {
+		$("#feeds_hide_icon_" + user_id).removeClass('ui-icon-circle-triangle-s');
+		$("#feeds_hide_icon_" + user_id).addClass('ui-icon-circle-triangle-n');
+		getFeedURL (user_id);
 	}
 	else {
-		getFeedURL (user_id);
+		$("#feeds_hide_icon_" + user_id).removeClass('ui-icon-circle-triangle-n');
+		$("#feeds_hide_icon_" + user_id).addClass('ui-icon-circle-triangle-s');
+		$("#feeds_" + user_id).slideUp('slow');
 	}
 }
 
 function addNewFeed (user_id) {
-	var feed_url = $("#feed_new_url").val();
+	var feed_url = $("#feed_new_url").val().trim();
+	
+	if (feed_url == null || feed_url == '') {
+		showNotification('Add Feed', 'Please provide an URL.', ERROR);
+		return;
+	}
+	
+	$("#feeds_img_" + user_id).fadeIn('slow');
+
 	$.post ("/s/addNewFeed", 
 			{
 				"user_id" 	: user_id,
@@ -2695,6 +2755,11 @@ function addNewFeed (user_id) {
 				if (response.success) {
 					getFeedURL (user_id);
 				}
+				else {
+					showNotification('Add Feed', response.msg, ERROR);
+				}
+				$("#feeds_img_" + user_id).fadeOut('slow');
+				$("#feed_new_url").val('');
 			}, 
 		"json"
 	);

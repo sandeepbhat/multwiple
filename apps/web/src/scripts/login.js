@@ -97,11 +97,14 @@ function loginAddOnSuccess(user){
 			'				<span class="ui-icon ui-icon-signal-diag"></span>' +
 			'				<span class="dashboard-item-name">Feeds</span>' +
 			'				<img src="../images/indicator_arrows.gif" alt="Loading" style="display:none;" id="feeds_img_' + user.id + '"/>'+
+		    '				<span id="feeds_hide_icon_' + user.id + '" class="ui-icon ui-icon-circle-triangle-s" style="float:right;"></span>'+
 			'			</div>' +
-			'			<div id="feeds_' + user.id + '" style="display:none;">' +
+			'			<div id="feeds_' + user.id + '" style="display:none;">'+
 			'				<div class="feeds-add">'+
-			'					<input type="text" id="feed_new_url"/>'+
-			'					<input type="button" value="Add" onclick="addNewFeed(' + user.id + ');"/>'+
+			'					<form onsubmit="return false;" method="post" action="">'+
+			'						<input type="text" value="Feed URL" class="text-box" id="feed_new_url" onfocus="this.value = \'\';" onblur="return(this.value == \'\' ? this.value = \'Feed URL\': this.value = this.value);"/>'+
+			'						<input type="button" class="jui-small-button" onclick="addNewFeed(' + user.id + ');" value="Add"/>'+
+			'					</form>'+
 			'				</div>' +
 			'				<div id="feeds_list_' + user.id + '">' +
 			'				</div>' +
@@ -233,13 +236,13 @@ function loginAddOnSuccess(user){
 			' 						<div class="tweetMsgs ui-corner-all" id="mention'+ user.id +'"></div>' +
 			' 					</div>' +
 			'				</li>'+
-							buildTweetBox(user, 'retweet', 'Retweets') +
-							buildTweetBox(user, 'favorite', 'Favorites')+
-							buildTweetBox(user, 'search', 'Results') +
-							buildTweetBox(user, 'following', 'People You Follow') +
-							buildTweetBox(user, 'followers', 'Your Followers') +
-							buildTweetBox(user, 'trends', 'Trends') +
-							buildTweetBox(user, 'mt_feeds', 'Feeds') +
+							buildTweetBox(user, 'retweet', 'Retweets', true) +
+							buildTweetBox(user, 'favorite', 'Favorites', true)+
+							buildTweetBox(user, 'search', 'Results', true) +
+							buildTweetBox(user, 'following', 'People You Follow', true) +
+							buildTweetBox(user, 'followers', 'Your Followers', true) +
+							buildTweetBox(user, 'trends', 'Trends', true) +
+							buildTweetBox(user, 'mt_feeds', 'Feeds', false) +
 			'			</ul>'+
 			'		</div>' +
 			'	</td>'+
@@ -336,7 +339,7 @@ function makeBoxesSortable(user) {
 	$(".sortable-list").disableSelection();
 }
 
-function buildTweetBox(user, type, header) {
+function buildTweetBox(user, type, header, paginate) {
 	code =
 			'<li id="'+type+'_list_'+user.id+'" style="display:none;">'+
 			'	<div id="container_'+ type + user.id +'" class="span-7">' +
@@ -351,12 +354,15 @@ function buildTweetBox(user, type, header) {
 			'				</span>'+
 			'			</div>'+
 			'			<div class="scrollable" id="'+type+'_container_'+user.id+'"></div>'+
-			'			<div class="paginate '+type+'-paginate-'+user.id+'">'+
+			'			<div class="paginate '+type+'-paginate-'+user.id+'">';
+
+	if (paginate) {
+		code += 
 			'				<table>'+
 			'					<tr>'+
 			'						<td style="width:90px;">'+
 			'							<span style="float:left;"> '+
-			'								<a id="new_'+type+'_link_'+user.id+'" style="display:none;" href=""> << Previous</a>'+
+			'								<a id="new_'+type+'_link_'+user.id+'" style="display:none;" href=""> &laquo; Previous</a>'+
 			'								<img src="../images/indicator_arrows.gif" style="display:none;" id="new_'+type+'_load_'+user.id+'" alt=""/>'+
 			'							</span>'+
 			'						</td>'+
@@ -366,11 +372,14 @@ function buildTweetBox(user, type, header) {
 			'						<td style="width:90px;">'+
 			'							<span style="float:right;"> '+
 			'								<img src="../images/indicator_arrows.gif" style="display:none;" id="old_'+type+'_load_'+user.id+'" alt=""/>'+
-			'								<a id="old_'+type+'_link_'+user.id+'" href="">Next >> </a>'+
+			'								<a id="old_'+type+'_link_'+user.id+'" href="">Next &raquo;</a>'+
 			'							</span>'+
 			'						</td>'+
 			'					</tr>'+
-			'				</table>'+
+			'				</table>';
+	}
+	
+	code +=
 			'			</div>'+
 			'		</div>'+
 			' 	</div>' +

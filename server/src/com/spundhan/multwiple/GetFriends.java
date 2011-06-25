@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import twitter4j.IDs;
 import twitter4j.PagableResponseList;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -166,10 +165,5 @@ public class GetFriends extends HttpServlet {
 		out.print("{ \"success\": true," + "\"prevCursor\": " + prevCursor + "," + "\"nextCursor\": " + nextCursor + "," + "\"result\": " + tweetJSON + " }");
 		out.close();
 		System.out.println("getMentions("+ userId +"): exit(true)");
-	}
-
-	private String isFriend(PagableResponseList<User> following, User friend) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

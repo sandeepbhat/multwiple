@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -65,6 +66,8 @@ public class AddNewFeed extends HttpServlet {
 			return;
 		}
 		
+		url = url.trim();
+		
 		String feedTitle = null;
 		
 		try {
@@ -105,9 +108,19 @@ public class AddNewFeed extends HttpServlet {
 		int userId = Integer.parseInt(userIdStr);
 		int groupId = Integer.parseInt(gidStr);
 		
-		AccessToken accessToken = new DB().isSessionValid(userId, groupId, session);
+		DB db = new DB();
+		db.logs (userId, multUser, Constants.FEEDS, "Add New Feed URL");
+
+		AccessToken accessToken = db.isSessionValid(userId, groupId, session);
 		if (userId == 0 || groupId == 0 || accessToken == null) {
 			out.print("{ \"success\": false, \"msg\": \"Authentication failed.\"}");
+			out.close();
+			return;
+		}
+		
+		boolean exists = feedExists(url, userId, groupId);
+		if (exists) {
+			out.print("{\"success\": false, \"msg\": \"Feed already exists.\"}");
 			out.close();
 			return;
 		}
@@ -135,6 +148,35 @@ public class AddNewFeed extends HttpServlet {
 		catch (SQLException e) {
 			e.printStackTrace();
 			log.error("GetFeeds: getFeeds: SQL Exception: " + e.getMessage());
+			return false;
+		}
+		return false;
+	}
+	
+	private boolean feedExists (String url, int userId, int groupId) {
+		String query = 
+			"SELECT " +
+				"COUNT(id) " +
+			"FROM " +
+				"main.feeds " +
+			"WHERE " +
+				"feed_url = '" + url + "' " +
+				"AND user_id = " + userId + " " +
+				"AND group_id = " + groupId + ";";
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			if (rs.next()) {
+				if (rs.getInt(1) == 1) {
+					statement.close();
+					return true;
+				}
+			}
+			statement.close();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			log.error("GetFeeds: feedExists: SQL Exception: " + e.getMessage());
 			return false;
 		}
 		return false;

@@ -58,7 +58,7 @@ public class GetFeeds extends HttpServlet {
 		String session = request.getParameter("session");
 		String multUser = request.getParameter("multUser");
 		String url = request.getParameter("url");
-		
+
 		if (Constants.isNull(userIdStr) || Constants.isNull(gidStr) || Constants.isNull(session)) {
 			out.print("{\"success\": false, \"msg\": \"Error getting feeds. Please refresh the page and try again.\"}");
 			out.close();
@@ -68,7 +68,10 @@ public class GetFeeds extends HttpServlet {
 		int userId = Integer.parseInt(userIdStr);
 		int groupId = Integer.parseInt(gidStr);
 		
-		AccessToken accessToken = new DB().isSessionValid(userId, groupId, session);
+		DB db = new DB();
+		db.logs (userId, multUser, Constants.FEEDS, "Get Feeds");
+		
+		AccessToken accessToken = db.isSessionValid(userId, groupId, session);
 		if (userId == 0 || groupId == 0 || accessToken == null) {
 			out.print("{ \"success\": false, \"msg\": \"Authentication failed.\"}");
 			out.close();
