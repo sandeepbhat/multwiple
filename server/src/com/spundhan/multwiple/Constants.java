@@ -3,8 +3,8 @@ package com.spundhan.multwiple;
 import java.util.Date;
 
 public class Constants {
-//	public static final String SERVER_URL = "http://multwiple.com";
-	public static final String SERVER_URL = "http://localhost:8080";
+	public static final String SERVER_URL = "http://multwiple.com";
+//	public static final String SERVER_URL = "http://localhost:8080";
 
 	public static final int FOLLOW_URL					= 1;
 	public static final int FOLLOW_USER					= 2;
