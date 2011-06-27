@@ -74,6 +74,8 @@ public class AddNewFeed extends HttpServlet {
 			URL feedUrl = new URL(url);
 			Feed feed = FeedParser.parse(feedUrl);
 			feedTitle = feed.getHeader().getTitle();
+			feedTitle = feedTitle.replaceAll("'", "''");
+			feedTitle = Constants.escape(feedTitle);
 			log.debug("AddNewFeed: Feed: " + feedTitle);
 		}
 		catch (MalformedURLException e) {
@@ -138,6 +140,7 @@ public class AddNewFeed extends HttpServlet {
 	
 	private boolean addNewFeed (String url, String feedTitle, int userId, int groupId) {
 		String query = "INSERT INTO main.feeds (feed_url, feed_title, user_id, group_id) VALUES ('" + url + "', '" + feedTitle + "', " + userId + ", " + groupId + ");";
+		log.debug("AddNewFeed: addNewFeed: Query: " + query);
 		try {
 			Statement statement = connection.createStatement();
 			int count = statement.executeUpdate(query);
@@ -163,6 +166,7 @@ public class AddNewFeed extends HttpServlet {
 				"feed_url = '" + url + "' " +
 				"AND user_id = " + userId + " " +
 				"AND group_id = " + groupId + ";";
+		log.debug("AddNewFeed: feedExists: Query: " + query);
 		try {
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
